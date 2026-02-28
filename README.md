@@ -10,14 +10,16 @@ BMAD (Business Method for Agile Development) is a structured AI-first product de
 
 | Path | Contents |
 |---|---|
-| `agents/bmad-*/` | 20 BMAD agent profiles (personas) |
-| `skills/bmad-*/` | 5 BMAD skills (init, bmm, bmb, cis, tea) |
-| `docs/bmad/` | Full BMAD framework template library |
+| `agents/bmad-*/` | 20 BMAD agent profiles, each with a complete prompt system (4 files for subordinates, 5 files for bmad-master) |
+| `skills/bmad-*/` | 5 BMAD skills (init, bmm, bmb, cis, tea) — installed globally, not per-project |
+| `docs/bmad/` | Full BMAD framework template library (workflows, templates, persona definitions, module configs) |
 
 ### Agent personas (20)
-`bmad-master` · `bmad-pm` · `bmad-analyst` · `bmad-architect` · `bmad-dev` · `bmad-sm` · `bmad-qa` · `bmad-ux-designer` · `bmad-tech-writer` · `bmad-quick-dev` · `bmad-agent-builder` · `bmad-workflow-builder` · `bmad-module-builder` · `bmad-test-architect` · `bmad-brainstorming-coach` · `bmad-design-thinking` · `bmad-innovation` · `bmad-storyteller` · `bmad-problem-solver` · `bmad-presentation`
+
+`bmad-master` · `bmad-analyst` · `bmad-pm` · `bmad-architect` · `bmad-dev` · `bmad-sm` · `bmad-qa` · `bmad-ux-designer` · `bmad-tech-writer` · `bmad-quick-dev` · `bmad-agent-builder` · `bmad-workflow-builder` · `bmad-module-builder` · `bmad-test-architect` · `bmad-brainstorming-coach` · `bmad-design-thinking` · `bmad-innovation` · `bmad-storyteller` · `bmad-problem-solver` · `bmad-presentation`
 
 ### Skills
+
 - **bmad-init** — bootstrap script that sets up a BMAD workspace in any Agent Zero project
 - **bmad-bmm** — Business Method Module: PRD, architecture, epics, stories, dev, sprint workflows
 - **bmad-bmb** — Builder Module: create/edit/validate BMAD agents, workflows, and modules
@@ -26,37 +28,151 @@ BMAD (Business Method for Agile Development) is a structured AI-first product de
 
 ---
 
-## Installation
+## Agent Prompt Architecture
 
-Copy the three directories into your Agent Zero installation (`/a0/`):
+Each BMAD agent is built from a clean 3-layer boundary:
 
-```bash
-# From inside your Agent Zero directory
-cp -r agents/bmad-* agents/
-cp -r skills/bmad-* skills/
-cp -r docs/bmad docs/
+```
+┌─────────────────────────────────────────────────────────┐
+│  Agent Prompts  (WHO the agent is)                      │
+│  role.md · communication.md · tips.md ·                 │
+│  communication_additions.md                             │
+├─────────────────────────────────────────────────────────┤
+│  Skills  (WHAT to execute)                              │
+│  SKILL.md — workflow routing, paths, execution protocol │
+├─────────────────────────────────────────────────────────┤
+│  Project Instructions  (WHERE the project is)           │
+│  .a0proj/instructions/ — state, config, paths           │
+└─────────────────────────────────────────────────────────┘
 ```
 
-Then restart Agent Zero. The 5 BMAD skills appear immediately in the skill list. Select the **BMad Master** profile to start.
+**Agent prompts** define persona, communication style, and menu presentation — they are static and live in the repo.  
+**Skills** are loaded on-demand and contain all workflow execution logic and routing instructions.  
+**Project instructions** are written by `bmad init` and contain project-specific state and configuration — they are never stored in the repo.
 
-### First run
+This boundary keeps the agents lightweight, the skills composable, and project state cleanly separated.
 
-In Agent Zero, trigger the bootstrap skill to initialize a project workspace:
+---
+
+## Prompt Files Per Agent
+
+### Standard agents (19 subordinates) — 4 files each
+
+| File | Purpose |
+|---|---|
+| `agent.system.main.role.md` | Full inline persona definition — name, background, expertise, personality. No lazy-loading from external docs; the complete persona is embedded here. |
+| `agent.system.main.communication.md` | BMAD Activation Protocol, JSON output format, thinking framework, skill routing instructions, and the `§§include` file-inclusion hook. |
+| `agent.system.main.tips.md` | Standard Agent Zero operational guidance (tool use, file handling, problem-solving steps) plus BMAD-specific behavioral guidelines. |
+| `agent.system.main.communication_additions.md` | Agent-specific numbered workflow menu — the list of commands this agent can execute, routing rules, and menu handling logic. |
+
+### bmad-master — 6 files (superset)
+
+All 4 files above, plus:
+
+| File | Purpose |
+|---|---|
+| `agent.system.tool.response.md` | Rich output formatting rules — how bmad-master structures final responses, markdown conventions, and section layout. |
+| `fw.initial_message.md` | The greeting message displayed when the bmad-master profile is first activated in a new session. |
+
+---
+
+## Menu System
+
+Every BMAD agent presents a **numbered workflow menu** when activated. This is the primary interaction model.
+
+### How it works
+
+1. Agent activates → greets user as their persona → displays numbered menu
+2. User selects by **number** (e.g. `1`), **command code** (e.g. `BP`), or **natural language** (fuzzy matched)
+3. Agent routes to the appropriate BMAD skill and executes the workflow
+4. For chat and help commands, agent responds directly without loading a skill
+
+### Menu definition
+
+Each agent's menu is defined in `communication_additions.md`. The file specifies:
+- The numbered command list with descriptions and type (Guided / Workflow / Task)
+- Always-available commands (`CH`, `PM`, `MH`, `DA`, `/bmad-help`)
+- Menu handling rules (ambiguity, no-match, stop-and-wait behavior)
+- Skill routing: which `skills_tool:load` call maps to which workflow section
+
+### Agent menu reference
+
+| Agent | Persona | Commands | Module |
+|---|---|---|---|
+| bmad-analyst | Mary 📊 | `BP` `MR` `DR` `TR` `CB` `DP` | BMM |
+| bmad-pm | John 📋 | `CP` `VP` `EP` `CE` `IR` `CC` | BMM |
+| bmad-architect | Winston 🏗️ | `CA` `IR` | BMM |
+| bmad-dev | Amelia 💻 | `DS` `CR` | BMM |
+| bmad-qa | Quinn 🧪 | `QA` | BMM |
+| bmad-sm | Bob 🏃 | `SP` `CS` `ER` `CC` | BMM |
+| bmad-ux-designer | Sally 🎨 | `CU` | BMM |
+| bmad-quick-dev | Barry 🚀 | `QS` `QD` `CR` | BMM |
+| bmad-tech-writer | Paige 📚 | `DP` `WD` `US` `MG` `VD` `EC` | BMM |
+| bmad-brainstorming-coach | Carson 🧠 | `BS` | CIS |
+| bmad-design-thinking | Maya 🎨 | `DT` | CIS |
+| bmad-innovation | Victor ⚡ | `IS` | CIS |
+| bmad-storyteller | Sophia 📖 | `ST` | CIS |
+| bmad-problem-solver | Dr. Quinn 🔬 | `PS` | CIS |
+| bmad-presentation | Caravaggio 🎨 | `SD` `EX` `PD` `CT` `IN` `VM` `CV` | CIS |
+| bmad-agent-builder | Bond 🤖 | `CA` `EA` `VA` | BMB |
+| bmad-workflow-builder | Wendy 🔄 | `CW` `EW` `VW` `MV` `RW` | BMB |
+| bmad-module-builder | Morgan 🏗️ | `PB` `CM` `EM` `VM` | BMB |
+| bmad-test-architect | Murat 🧪 | `TMT` `TF` `AT` `TA` `TD` `TR` `NR` `CI` `RV` | TEA |
+| bmad-master | BMad 🧙 | `LT` `LW` + delegates to all 19 agents | Core |
+
+---
+
+## Installation
+
+Copy agents, skills, and docs into your Agent Zero installation:
+
+```bash
+# From the repo root
+cp -r agents/bmad-* /a0/agents/
+cp -r skills/bmad-* /a0/skills/
+mkdir -p /a0/docs
+cp -r docs/bmad /a0/docs/
+```
+
+Then restart Agent Zero. The 20 BMAD agent profiles and 5 BMAD skills appear immediately.
+
+> **Note:** Skills are installed globally at `/a0/skills/`. The `bmad init` command does **not** copy skills into individual projects — they remain global and are loaded on-demand by any BMAD agent.
+
+---
+
+## First Run
+
+Select the **BMad Master** profile in Agent Zero, then trigger the bootstrap skill:
 
 > *"bmad init"*
 
-This creates `.a0proj/` in the current project directory with the full framework, config files, and state tracking.
+### What `bmad init` creates
+
+Running `bmad init` in a project sets up the BMAD workspace inside `.a0proj/`:
+
+| Path | Description |
+|---|---|
+| `.a0proj/_bmad/` | Full framework copy from `/a0/docs/bmad/` (workflows, templates, module configs) |
+| `.a0proj/_bmad-output/` | Output directory for generated artifacts |
+| `.a0proj/knowledge/` | Project knowledge base directory |
+| `.a0proj/instructions/` | Project instruction files (read by Agent Zero on every session) |
+| `.a0proj/instructions/01-bmad-config.md` | Path aliases and user settings for this project |
+| `.a0proj/instructions/02-bmad-state.md` | Current BMAD phase, active persona, and artifact tracking |
+
+The two instruction files are loaded automatically by Agent Zero and used by the **BMAD Activation Protocol** in each agent's `communication.md`: on session start, the agent reads project state from `02-bmad-state.md`, reads config from `01-bmad-config.md`, greets the user as the appropriate BMAD persona, and waits for direction before executing any workflow.
+
+> Skills are **not** copied into the project — they remain at `/a0/skills/` and are loaded on-demand.
 
 ---
 
 ## Modules
 
-| Module | Purpose |
-|---|---|
-| **BMM** — Business Method Module | Full product lifecycle: discovery → planning → architecture → implementation |
-| **BMB** — Builder Module | Meta-module for creating and extending BMAD agents, workflows, and modules |
-| **TEA** — Testing Excellence Accelerator | Test architecture, ATDD, automation, CI, NFR assessment |
-| **CIS** — Creative Intelligence Suite | Innovation strategy, design thinking, storytelling, structured problem solving |
+| Module | Skill | Purpose |
+|---|---|---|
+| **BMM** — Business Method Module | `bmad-bmm` | Full product lifecycle: discovery → planning → architecture → implementation |
+| **BMB** — Builder Module | `bmad-bmb` | Meta-module for creating and extending BMAD agents, workflows, and modules |
+| **TEA** — Testing Excellence Accelerator | `bmad-tea` | Test architecture, ATDD, automation, CI, NFR assessment |
+| **CIS** — Creative Intelligence Suite | `bmad-cis` | Innovation strategy, design thinking, storytelling, structured problem solving |
 
 ---
 
