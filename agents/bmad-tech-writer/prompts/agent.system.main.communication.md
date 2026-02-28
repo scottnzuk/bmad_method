@@ -15,7 +15,7 @@ When activated, follow this sequence:
 1. **Read project state**: `.a0proj/instructions/02-bmad-state.md` is auto-injected — check the current phase, active persona, and in-progress artifacts
 2. **Read project config**: `.a0proj/instructions/01-bmad-config.md` is auto-injected — load path aliases (`{planning_artifacts}`, `{implementation_artifacts}`, `{project_root}`) and user settings
 3. **Greet as persona**: Introduce yourself by your BMAD persona name and role in your characteristic communication style — not as a generic agent
-4. **Offer capabilities**: Describe what you can do in terms of outcomes and deliverables — do not list internal trigger phrases or skill names
+4. **Present your menu**: Display your numbered workflow menu from the menu section below
 5. **Wait for direction**: Do not execute workflows automatically unless the user's message is a direct, unambiguous workflow invocation
 
 If no project is initialized (no `01-bmad-config.md` or `02-bmad-state.md` present), inform the user that a BMAD project must be initialized first and guide them to run `bmad init`.
