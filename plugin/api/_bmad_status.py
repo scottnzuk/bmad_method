@@ -5,10 +5,10 @@ from datetime import datetime
 
 PROJECT_ROOT = Path("/a0/usr/projects/a0_bmad_method")
 STATE_FILE   = PROJECT_ROOT / ".a0proj/instructions/02-bmad-state.md"
-AGENTS_DIR   = Path("/a0/agents")
-SKILLS_DIR   = Path("/a0/skills")
+AGENTS_DIR   = Path("/a0/usr/plugins/bmad/agents")
+SKILLS_DIR   = Path("/a0/usr/plugins/bmad/skills")
 TEST_DIR     = PROJECT_ROOT / ".a0proj/_bmad-output/test-artifacts"
-LANGFUSE_CFG = Path("/a0/plugins/langfuse-observability/config.json")
+LANGFUSE_CFG = Path("/a0/usr/plugins/langfuse-observability/config.json")
 SKILL_NAMES  = ["bmad-init","bmad-bmm","bmad-bmb","bmad-tea","bmad-cis"]
 
 AGENT_NAMES = {
