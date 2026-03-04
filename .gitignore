@@ -5,6 +5,5 @@
 # Agent Zero project state — local only, never commit
 .a0proj/
 
-# Plugin toggle state — environment specific
+# Plugin disabled state — keep enabled (.toggle-1) committed, ignore disabled marker
 .toggle-0
-.toggle-1

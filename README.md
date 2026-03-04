@@ -124,21 +124,24 @@ Each agent's menu is defined in `communication_additions.md`. The file specifies
 
 ## Installation
 
-Copy agents, skills, and docs into your Agent Zero installation:
+This repo is an **Agent Zero plugin**. The plugin folder **must be named `bmad`** — the dashboard and extensions reference `/usr/plugins/bmad/` internally.
+
+### Option A — Clone directly into Agent Zero
 
 ```bash
-# From the repo root
-cp -r agents/bmad-* /a0/agents/
-cp -r skills/bmad-* /a0/skills/
-mkdir -p /a0/docs
-cp -r docs/bmad /a0/docs/
+git clone https://github.com/vanja-emichi/a0-bmad-method.git /path/to/agent-zero/usr/plugins/bmad
 ```
 
-Then restart Agent Zero. The 20 BMAD agent profiles and 5 BMAD skills appear immediately.
+### Option B — Copy from an existing clone
 
-> **Note:** Skills are installed globally at `/a0/skills/`. The `bmad init` command does **not** copy skills into individual projects — they remain global and are loaded on-demand by any BMAD agent.
+```bash
+cp -r /path/to/a0-bmad-method /path/to/agent-zero/usr/plugins/bmad
+```
 
----
+> ⚠️ **The folder must be named `bmad`** — not `a0-bmad-method` or anything else.
+
+The `.toggle-1` file is included in the repo, so the plugin ships **pre-enabled**. Restart Agent Zero after installation — the **BMAD Method** plugin and dashboard icon will appear immediately.
+
 
 ## First Run
 
