@@ -9,17 +9,31 @@ from datetime import datetime
 _PLUGIN_ROOT = Path(__file__).resolve().parent.parent
 
 # Walk up from plugin root to find the project root (.a0proj marker)
-def _find_project_root(start: Path) -> Path:
+# Falls back to scanning /a0/usr/projects/ for any BMAD-initialized project
+def _find_project_root(start: Path):
+    # Mode 1: dev symlink — .a0proj is an ancestor of the real file location
     for parent in [start, *start.parents]:
         if (parent / ".a0proj").exists():
             return parent
-    return start  # fallback to plugin root
+    # Mode 2: production plugin — scan all A0 user projects for BMAD state file
+    projects_dir = Path("/a0/usr/projects")
+    if projects_dir.exists():
+        candidates = []
+        for proj in projects_dir.iterdir():
+            if not proj.is_dir(): continue
+            state = proj / ".a0proj/instructions/02-bmad-state.md"
+            if state.exists():
+                candidates.append((state.stat().st_mtime, proj))
+        if candidates:
+            candidates.sort(reverse=True)  # most recently active project first
+            return candidates[0][1]
+    return None  # no BMAD project found anywhere
 
 PROJECT_ROOT = _find_project_root(_PLUGIN_ROOT)
-STATE_FILE   = PROJECT_ROOT / ".a0proj/instructions/02-bmad-state.md"
+STATE_FILE   = (PROJECT_ROOT / ".a0proj/instructions/02-bmad-state.md") if PROJECT_ROOT else None
 AGENTS_DIR   = _PLUGIN_ROOT / "agents"
 SKILLS_DIR   = _PLUGIN_ROOT / "skills"
-TEST_DIR     = PROJECT_ROOT / ".a0proj/_bmad-output/test-artifacts"
+TEST_DIR     = (PROJECT_ROOT / ".a0proj/_bmad-output/test-artifacts") if PROJECT_ROOT else None
 SKILL_NAMES  = ["bmad-init","bmad-bmm","bmad-bmb","bmad-tea","bmad-cis"]
 
 # Langfuse config: check user plugins first, then builtin (A0 priority order)
@@ -57,9 +71,9 @@ PHASE_ACTIONS = {
     "2":       ("Continue Phase 2 Planning","Ask John (PM) to continue PRD or Sally (UX) for UX design"),
     "3":       ("Continue Phase 3 Solutioning","Ask Winston (Architect) to finalize the architecture document"),
     "4":       ("Continue Phase 4 Implementation","Ask Bob (SM) for sprint planning or Amelia (Dev) for next story"),
-    "unknown": ("Initialize BMAD","Run: bmad init"),
+    "not_initialized": ("Initialize BMAD", "Create or open a project in Agent Zero, then say: bmad init"),
+    "unknown": ("Initialize BMAD", "Create or open a project in Agent Zero, then say: bmad init"),
 }
-
 
 class BmadStatus(ApiHandler):
     async def process(self, input: dict, request: Request) -> dict | Response:
@@ -78,8 +92,10 @@ class BmadStatus(ApiHandler):
             return {"success": False, "error": str(e)}
 
     def _read_state(self):
+        if STATE_FILE is None:
+            return {"phase":"not_initialized","artifact":"none","issues":[]}
         if not STATE_FILE.exists():
-            return {"phase":"unknown","artifact":"none","issues":[]}
+            return {"phase":"not_initialized","artifact":"none","issues":[]}
         text = STATE_FILE.read_text(encoding="utf-8")
         phase    = re.search(r"Phase:\s*(.+)", text)
         artifact = re.search(r"Active Artifact:\s*(.+)", text)
