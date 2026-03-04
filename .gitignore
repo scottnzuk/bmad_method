@@ -2,7 +2,9 @@
 **/__pycache__/
 *.py[cod]
 
-# Local Agent Zero Memory
-.a0proj/memory/*.faiss
-.a0proj/memory/*.pkl
-.a0proj/memory/*.json
+# Agent Zero project state — local only, never commit
+.a0proj/
+
+# Plugin toggle state — environment specific
+.toggle-0
+.toggle-1
