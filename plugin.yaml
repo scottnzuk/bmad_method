@@ -1,3 +1,4 @@
+name: bmad_method
 title: BMAD Method
 description: Live BMAD Framework status dashboard — agent health, skills, tests, Langfuse telemetry, and next-action recommendations.
 version: 1.0.0
