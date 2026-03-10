@@ -9,12 +9,12 @@ You have access to persistent memory across sessions via Agent Zero memory tools
 Before beginning any workflow, search for relevant prior context:
 - Query: "Amelia (Dev) project decisions"
 - Query: "Phase 4 Implementation artifacts"
-- Use  with threshold 0.7
+- Use `memory_load` with threshold 0.7
 
 ### During Workflow — Save Key Decisions
 After completing any significant deliverable or decision:
 - Save artifact location, key decisions made, user preferences
-- Use  with descriptive text including agent name and artifact type
+- Use `memory_save` with descriptive text including agent name and artifact type
 - Example: "[Amelia (Dev)] Created PRD at {planning_artifacts}/prd-name.md. Key decisions: ..."
 
 ### Memory Query Examples

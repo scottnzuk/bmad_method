@@ -47,4 +47,23 @@ Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve:
 
 ## EXECUTION
 
+## Workflow Completion — State Write (MANDATORY)
+
+Before returning control to the user, write the updated project state using `code_execution_tool` terminal:
+
+~~~bash
+STATE_FILE="$(grep 'project-root' /a0/usr/projects/a0_bmad_method/.a0proj/instructions/01-bmad-config.md | grep -o '/[^|]*' | tr -d ' ')/instructions/02-bmad-state.md"
+cat > "$STATE_FILE" << 'STATEEOF'
+## BMAD Active State
+- Phase: ready
+- Persona: BMad Barry (Quick Flow Solo Dev)
+- Active Artifact: quick-spec.md
+- Last Updated: $(date +%Y-%m-%d)
+STATEOF
+echo "State written: $STATE_FILE"
+~~~
+
+Valid phase values: `ready` | `1-analysis` | `2-planning` | `3-solutioning` | `4-implementation` | `bmb` | `cis`
+
+Read fully and follow: `{project-root}/_bmad/bmm/workflows/bmad-quick-flow/quick-dev/steps/step-01-mode-detection.md` to begin the workflow.
 Read fully and follow: `{project-root}/_bmad/bmm/workflows/bmad-quick-flow/quick-dev/steps/step-01-mode-detection.md` to begin the workflow.

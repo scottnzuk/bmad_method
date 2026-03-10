@@ -77,4 +77,22 @@ Definition of Done: {{PASS/FAIL}}
 
 **If FAIL:** List specific failures and required actions before story can be marked Ready for Review
 
-**If PASS:** Story is fully ready for code review and production consideration
+## Workflow Completion — State Write (MANDATORY)
+
+Before returning control to the user, write the updated project state using `code_execution_tool` terminal:
+
+~~~bash
+STATE_FILE="$(grep 'project-root' /a0/usr/projects/a0_bmad_method/.a0proj/instructions/01-bmad-config.md | grep -o '/[^|]*' | tr -d ' ')/instructions/02-bmad-state.md"
+cat > "$STATE_FILE" << 'STATEEOF'
+## BMAD Active State
+- Phase: 4-implementation
+- Persona: BMad Amelia (Developer Agent)
+- Active Artifact: story.md
+- Last Updated: $(date +%Y-%m-%d)
+STATEOF
+echo "State written: $STATE_FILE"
+~~~
+
+Valid phase values: `ready` | `1-analysis` | `2-planning` | `3-solutioning` | `4-implementation` | `bmb` | `cis`
+
+If PASS: Story is fully ready for code review and production consideration

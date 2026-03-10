@@ -159,4 +159,22 @@ Product Brief complete. Read fully and follow: `{project-root}/_bmad/core/tasks/
 
 This product brief is now complete and serves as the strategic foundation for the entire product lifecycle. All subsequent design, architecture, and development work should trace back to the vision, user needs, and success criteria documented in this brief.
 
+## Workflow Completion — State Write (MANDATORY)
+
+Before returning control to the user, write the updated project state using `code_execution_tool` terminal:
+
+~~~bash
+STATE_FILE="$(grep 'project-root' /a0/usr/projects/a0_bmad_method/.a0proj/instructions/01-bmad-config.md | grep -o '/[^|]*' | tr -d ' ')/instructions/02-bmad-state.md"
+cat > "$STATE_FILE" << 'STATEEOF'
+## BMAD Active State
+- Phase: 2-planning
+- Persona: BMad Mary (Business Analyst)
+- Active Artifact: product-brief.md
+- Last Updated: $(date +%Y-%m-%d)
+STATEOF
+echo "State written: $STATE_FILE"
+~~~
+
+Valid phase values: `ready` | `1-analysis` | `2-planning` | `3-solutioning` | `4-implementation` | `bmb` | `cis`
+
 **Congratulations on completing the Product Brief for {{project_name}}!** 🎉
