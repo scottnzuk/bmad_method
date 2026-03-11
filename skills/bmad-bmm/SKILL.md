@@ -105,7 +105,7 @@ All paths below use `{project-root}` which resolves to `.a0proj/` as defined in 
 ## Phase 3 — Solutioning
 
 ### Create Architecture
-**Triggers:** "create architecture", "technical architecture", "solution design", "system design"
+**Triggers:** "CA", "create architecture", "technical architecture", "solution design", "system design"
 **Output artifact:** `{project-root}/_bmad-output/planning-artifacts/architecture.md`
 **Workflow:** `{skill-dir}/workflows/3-solutioning/create-architecture/workflow.md`
 
@@ -115,7 +115,7 @@ All paths below use `{project-root}` which resolves to `.a0proj/` as defined in 
 **Workflow:** `{skill-dir}/workflows/3-solutioning/create-epics-and-stories/workflow.md`
 
 ### Check Implementation Readiness
-**Triggers:** "check implementation readiness", "readiness check", "ready for development"
+**Triggers:** "IR", "check implementation readiness", "readiness check", "ready for development"
 **Output artifact:** Readiness report inline
 **Workflow:** `{skill-dir}/workflows/3-solutioning/check-implementation-readiness/workflow.md`
 

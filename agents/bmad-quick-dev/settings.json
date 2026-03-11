@@ -2,7 +2,7 @@
     "chat_model_name": "minimax-m25",
     "chat_model_ctx_length": 198000,
     "chat_model_kwargs": {
-        "temperature": 0.20,
+        "temperature": 0.2,
         "top_p": 0.82
     }
 }

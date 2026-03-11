@@ -1,6 +1,6 @@
 name: bmad_method
 title: BMAD Method
-description: Live BMAD Framework status dashboard — agent health, skills, tests, Langfuse telemetry, and next-action recommendations.
+description: BMAD Method Framework for Agent Zero — full software development lifecycle with 20 specialist agents across 4 modules (BMM, BMB, TEA, CIS), 5 skills, per-project memory isolation, and an interactive status dashboard.
 version: 1.0.0
 settings_sections: []
 per_project_config: false

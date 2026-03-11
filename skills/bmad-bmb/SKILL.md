@@ -20,6 +20,9 @@ trigger_patterns:
   - "validate module"
   - "create module brief"
   - "bmad builder"
+  - "generate module help"
+  - "module help csv"
+  - "update module help"
 ---
 
 # BMAD Builder Module (BMB) — Create and Extend BMAD Agents, Workflows, and Modules
@@ -101,6 +104,11 @@ When any BMB workflow is triggered, read the full workflow file at the path show
 **Triggers:** "create module brief", "module brief", "new module brief"
 **Output artifact:** Module brief document
 **Workflow:** `{skill-dir}/workflows/module/workflow-create-module-brief.md`
+
+### Generate Module Help
+**Triggers:** "generate module help", "module help csv", "update module help", "regenerate module help"
+**Output artifact:** Updated `module-help.csv` at module root
+**Workflow:** `{skill-dir}/workflows/module/module-help-generate.md`
 
 ---
 
