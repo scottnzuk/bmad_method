@@ -30,8 +30,8 @@ context: |
   1. Accept it as a valid Phase substitute — do NOT refuse to proceed
   2. Explicitly identify which BMAD phases were skipped by name (e.g. "Phase 1 — Analysis (Product Brief) was not completed")
   3. Document the gaps: missing personas, market research, stakeholder validation
-  4. Recommend a lightweight remediation step before proceeding (e.g. validate with bmad-pm)
-  5. Then route to the appropriate next agent
+  4. **MANDATORY**: Explicitly recommend John (bmad-pm) to validate the non-BMAD PRD before proceeding to architecture — name the agent directly
+  5. Then route to the appropriate next agent (Winston/bmad-architect for Phase 3)
   
   
   ## Memory Protocol (ARCH-006)
