@@ -12,7 +12,7 @@ BMAD (Business Method for Agile Development) is a structured AI-first product de
 |---|---|
 | `agents/bmad-*/` | 20 BMAD agent profiles, each with a complete prompt system (4 files for subordinates, 5 files for bmad-master) |
 | `skills/bmad-*/` | 5 BMAD skills (init, bmm, bmb, cis, tea) — installed globally, not per-project |
-| `docs/bmad/` | Full BMAD framework template library (workflows, templates, persona definitions, module configs) |
+| `.a0proj/knowledge/main/bmad-{name}/` | 20 per-agent constitutional sidecar files — static standards and seeds, preloaded into FAISS at session start |
 
 ### Agent personas (20)
 
@@ -129,7 +129,7 @@ This repo is an **Agent Zero plugin**. The plugin folder **must be named `bmad`*
 ### Option A — Clone directly into Agent Zero
 
 ```bash
-git clone https://github.com/vanja-emichi/a0-bmad-method.git /path/to/agent-zero/usr/plugins/bmad
+git clone https://github.com/vanja-emichi/bmad_method.git /path/to/agent-zero/usr/plugins/bmad
 ```
 
 ### Option B — Copy from an existing clone
@@ -141,6 +141,8 @@ cp -r /path/to/a0-bmad-method /path/to/agent-zero/usr/plugins/bmad
 > ⚠️ **The folder must be named `bmad`** — not `a0-bmad-method` or anything else.
 
 The `.toggle-1` file is included in the repo, so the plugin ships **pre-enabled**. Restart Agent Zero after installation — the **BMAD Method** plugin and dashboard icon will appear immediately.
+
+For detailed installation steps, verification, developer setup, and upgrade instructions: see [README-install.md](README-install.md).
 
 
 ## First Run
@@ -155,7 +157,6 @@ Running `bmad init` in a project sets up the BMAD workspace inside `.a0proj/`:
 
 | Path | Description |
 |---|---|
-| `.a0proj/_bmad/` | Full framework copy from `/a0/docs/bmad/` (workflows, templates, module configs) |
 | `.a0proj/_bmad-output/` | Output directory for generated artifacts |
 | `.a0proj/knowledge/` | Project knowledge base directory |
 | `.a0proj/instructions/` | Project instruction files (read by Agent Zero on every session) |
@@ -179,7 +180,52 @@ The two instruction files are loaded automatically by Agent Zero and used by the
 
 ---
 
+## Dashboard
+
+BMAD ships a live project status dashboard. After installation, the BMAD button appears in Agent Zero's sidebar.
+
+| Component | Location | Purpose |
+|---|---|---|
+| Dashboard SPA | `webui/bmad-dashboard.html` | Real-time phase, active artifact, story tracking |
+| REST API | `api/_bmad_status.py` | Reads `02-bmad-state.md` and serves structured status |
+| Sidebar button | `extensions/webui/sidebar-quick-actions-main-start/` | Opens dashboard in one click |
+
+The dashboard is **read-only** — it observes agent state without writing to it.
+
+---
+
+## Memory Architecture (ARCH-006)
+
+Each BMAD agent maintains isolated persistent memory across sessions:
+
+- **Per-agent FAISS stores** — `.a0proj/memory/bmad-{name}/` — vector databases isolated by agent and project ID
+- **Constitutional knowledge layer** — `.a0proj/knowledge/main/bmad-{name}/` — static standards and seeds, preloaded into FAISS at session start via native A0 `agent_knowledge_subdir` mechanism
+- **Project knowledge** — `.a0proj/knowledge/main/` — shared FAISS-loaded documents available to all agents
+
+See [`knowledge/main/memory-architecture.md`](.a0proj/knowledge/main/memory-architecture.md) for the full reference.
+
+---
+
+## Extension Pipeline
+
+Two Python extensions hook into Agent Zero's lifecycle:
+
+| Extension | Hook Point | Purpose |
+|---|---|---|
+| `_11_bmad_autobrief.py` | `agent_init` | Auto-generates project brief for BMad Master on fresh sessions |
+| `_80_bmad_routing_manifest.py` | `message_loop_prompts_after` | Dynamically builds routing manifest from `skills/*/module-help.csv` for BMad Master orchestration |
+
+---
+
+## Documentation
+
+- [Architecture Alignment Report v3.0](.a0proj/_bmad-output/planning-artifacts/architecture-bmad-a0-alignment.md) — canonical system architecture reference
+- [Detailed Install Guide](README-install.md) — installation, verification, upgrade, and developer setup
+- [Memory Architecture](.a0proj/knowledge/main/memory-architecture.md) — ARCH-006 reference
+
+---
+
 ## Requirements
 
-- [Agent Zero](https://github.com/frdel/agent-zero) (testing branch or latest)
+- [Agent Zero](https://github.com/frdel/agent-zero) (latest stable release)
 - An LLM with large context window recommended (Claude Sonnet or better)
