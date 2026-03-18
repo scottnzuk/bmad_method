@@ -112,6 +112,28 @@ When any BMB workflow is triggered, read the full workflow file at the path show
 
 ---
 
+
+---
+
+## Short Trigger Codes
+
+Use these short codes or fuzzy phrases to activate BMB specialist agents directly:
+
+| Code | Fuzzy Phrase | Agent | Description |
+|------|-------------|-------|-------------|
+| `CA` | create-agent | bmad-agent-builder (Bond) | Create a new BMAD agent |
+| `EA` | edit-agent | bmad-agent-builder (Bond) | Edit existing BMAD agent |
+| `VA` | validate-agent | bmad-agent-builder (Bond) | Validate BMAD agent compliance |
+| `CM` | create-module | bmad-module-builder (Morgan) | Create a complete BMAD module |
+| `EM` | edit-module | bmad-module-builder (Morgan) | Edit existing BMAD module |
+| `VM` | validate-module | bmad-module-builder (Morgan) | Run compliance check on module |
+| `PB` | product-brief | bmad-module-builder (Morgan) | Create product brief for module |
+| `CW` | create-workflow | bmad-workflow-builder (Wendy) | Create a new BMAD workflow |
+| `EW` | edit-workflow | bmad-workflow-builder (Wendy) | Edit existing BMAD workflow |
+| `VW` | validate-workflow | bmad-workflow-builder (Wendy) | Validate BMAD workflow |
+| `MV` | validate-max-parallel-workflow | bmad-workflow-builder (Wendy) | Validate workflow in MAX-PARALLEL mode |
+| `RW` | convert-or-rework-workflow | bmad-workflow-builder (Wendy) | Rework workflow to V6 compliant version |
+
 ## Execution Instructions
 
 When any BMB workflow is triggered:

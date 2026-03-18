@@ -84,6 +84,25 @@ When any TEA workflow is triggered, read the full workflow file at the path show
 
 ---
 
+
+---
+
+## Short Trigger Codes
+
+Use these short codes or fuzzy phrases to activate TEA workflows directly:
+
+| Code | Fuzzy Phrase | Description |
+|------|-------------|-------------|
+| `TMT` | teach-me-testing | Teach Me Testing — 7 progressive learning sessions |
+| `TF` | test-framework | Initialize production-ready test framework architecture |
+| `AT` | atdd | Generate failing acceptance tests + implementation checklist |
+| `TA` | test-automate | Generate prioritized API/E2E tests for a story |
+| `TD` | test-design | Risk assessment + coverage strategy for system/epic |
+| `TR` | test-trace | Map requirements to tests + quality gate decision |
+| `NR` | nfr-assess | Assess non-functional requirements and recommend actions |
+| `CI` | continuous-integration | Recommend and scaffold CI/CD quality pipeline |
+| `RV` | test-review | Quality check written tests against best practices |
+
 ## Execution Instructions
 
 When any TEA workflow is triggered:

@@ -53,6 +53,28 @@ When any CIS workflow is triggered, read the full workflow file at the path show
 
 ---
 
+
+---
+
+## Short Trigger Codes
+
+Use these short codes or fuzzy phrases to activate CIS specialist agents directly:
+
+| Code | Fuzzy Phrase | Agent | Description |
+|------|-------------|-------|-------------|
+| `BS` | brainstorm | bmad-brainstorming-coach (Carson) | Guide brainstorming session |
+| `DT` | design-thinking | bmad-design-thinking (Maya) | Guide human-centered design process |
+| `IS` | innovation-strategy | bmad-innovation (Victor) | Identify disruption opportunities |
+| `PS` | problem-solving | bmad-problem-solver (Dr. Quinn) | Apply systematic problem-solving |
+| `ST` | story | bmad-storyteller (Sophia) | Craft compelling narrative |
+| `SD` | slide-deck | bmad-presentation (Caravaggio) | Create professional slide presentation |
+| `EX` | youtube-explainer | bmad-presentation (Caravaggio) | Design YouTube/video explainer |
+| `PD` | pitch-deck | bmad-presentation (Caravaggio) | Craft investor pitch deck |
+| `CT` | conference-talk | bmad-presentation (Caravaggio) | Build conference talk materials |
+| `IN` | infographic | bmad-presentation (Caravaggio) | Design information visualization |
+| `VM` | visual-metaphor | bmad-presentation (Caravaggio) | Create conceptual illustrations |
+| `CV` | concept-visual | bmad-presentation (Caravaggio) | Generate expressive concept image |
+
 ## Execution Instructions
 
 When any CIS workflow is triggered:
