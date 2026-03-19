@@ -76,6 +76,8 @@ Use this map to convert the `agent-name` field from manifests to the correct `ca
 | `storyteller` | `bmad-storyteller` |
 | `creative-problem-solver` | `bmad-problem-solver` |
 | `presentation` | `bmad-presentation` |
+| `tea` | `bmad-test-architect` |
+| `party-mode facilitator` | `bmad-master` |
 
 ---
 
