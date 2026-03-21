@@ -9,7 +9,7 @@
 ```yaml
 agent:
   metadata:
-    id: "_bmad/..."
+    id: "agents/bmad-.../agent.yaml"
     name: "Persona Name"
     title: "Agent Title"
     icon: "🔧"

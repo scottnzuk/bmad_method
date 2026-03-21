@@ -164,7 +164,7 @@ This product brief is now complete and serves as the strategic foundation for th
 Before returning control to the user, write the updated project state using `code_execution_tool` terminal:
 
 ~~~bash
-STATE_FILE="$(grep 'project-root' /a0/usr/projects/a0_bmad_method/.a0proj/instructions/01-bmad-config.md | grep -o '/[^|]*' | tr -d ' ')/instructions/02-bmad-state.md"
+STATE_FILE="{project-root}/instructions/02-bmad-state.md"
 cat > "$STATE_FILE" << 'STATEEOF'
 ## BMAD Active State
 - Phase: 2-planning

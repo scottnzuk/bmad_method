@@ -93,7 +93,7 @@ Create the workflow folder structure:
 └── templates/                     # Output templates
 ```
 
-**For BMB module workflows:** The target will be `_bmad/custom/src/workflows/{workflow_name}/`
+**For BMB module workflows:** The target will be `skills/bmad-custom/workflows/{workflow_name}/`
 **For other modules:** Check module's custom_workflow_location
 
 Create the folders and confirm structure.

@@ -228,8 +228,8 @@ Write to: {moduleHelpCsvFile}
 module,phase,name,code,sequence,workflow-file,command,required,agent,options,description,output-location,outputs,
 mwm,anytime,Chat with Wellness,CWC,,"mwm_chat",false,wellness-companion,Chat Mode,"Have a supportive conversation anytime",,,
 mwm,anytime,Quick Breathing,QB,,"mwm_breathing",false,meditation-guide,Breathing,"Quick 4-7-8 breathing exercise",,,
-mwm,phase-1,Daily Check In,DCI,10,_bmad/mwm/workflows/daily-checkin/workflow.md,mwm_daily_checkin,false,wellness-companion,Check In Mode,"Start your day with wellness check-in",mwm_output,"summary",
-mwm,phase-2,Wellness Journal,WJ,20,_bmad/mwm/workflows/wellness-journal/workflow.md,mwm_journal,false,wellness-companion,Journal Mode,"Reflect and track your wellness journey",mwm_output,"entry",
+mwm,phase-1,Daily Check In,DCI,10,skills/bmad-mwm/workflows/daily-checkin/workflow.md,mwm_daily_checkin,false,wellness-companion,Check In Mode,"Start your day with wellness check-in",mwm_output,"summary",
+mwm,phase-2,Wellness Journal,WJ,20,skills/bmad-mwm/workflows/wellness-journal/workflow.md,mwm_journal,false,wellness-companion,Journal Mode,"Reflect and track your wellness journey",mwm_output,"entry",
 ```
 
 ### Standalone Module (like bmad-custom):

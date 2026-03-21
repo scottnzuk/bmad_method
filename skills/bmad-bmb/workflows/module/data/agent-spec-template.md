@@ -11,7 +11,7 @@
 ```yaml
 agent:
   metadata:
-    id: "_bmad/{module_code}/agents/{agent_file_name}.md"
+    id: "agents/bmad-{module_code}/{agent_file_name}.yaml"
     name: {agent_human_name}
     title: {agent_title}
     icon: {agent_icon}

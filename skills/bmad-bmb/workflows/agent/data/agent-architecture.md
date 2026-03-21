@@ -16,7 +16,7 @@ Single Agent type with `hasSidecar` boolean. `critical_actions` decoupled from s
 ```yaml
 agent:
   metadata:
-    id: _bmad/agents/{agent-name}/{agent-name}.md
+    id: agents/bmad-{agent-name}/agent.yaml
     name: 'Persona Name'
     title: 'Agent Title'
     icon: '<emoji>'
@@ -51,7 +51,7 @@ agent:
 
 | Field | Format | Example |
 |-------|--------|---------|
-| `id` | `_bmad/agents/{name}/{name}.md` | `_bmad/agents/commit-poet/commit-poet.md` |
+| `id` | `agents/bmad-{name}/agent.yaml` | `agents/bmad-commit-poet/agent.yaml` |
 | `name` | Persona name | `Inkwell Von Comitizen` |
 | `title` | Role | `Commit Message Artisan` |
 | `icon` | Single emoji | `📜` |

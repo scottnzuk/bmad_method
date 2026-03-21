@@ -2,7 +2,7 @@
 
 | Property | Format | Rules |
 |----------|--------|-------|
-| `id` | `_bmad/agents/{agent-name}/{agent-name}.md` | Compiled output path; must match filename |
+| `id` | `agents/bmad-{agent-name}/agent.yaml` | Compiled output path; must match filename |
 | `name` | "First Last" or "Name Title" | Persona's identity (NOT title/filename) |
 | `title` | "Role Name" (kebab-cased to filename) | Determines filename: `title` → `{title}.agent.yaml` |
 | `icon` | Single emoji only | One emoji exactly |
@@ -15,7 +15,7 @@
 
 ### `id`
 ```yaml
-id: _bmad/agents/commit-poet/commit-poet.md
+id: agents/bmad-commit-poet/agent.yaml
 ```
 - Unique identifier for future lookup
 - Conventionally matches filename pattern
@@ -98,7 +98,7 @@ hasSidecar: true
 | What's the persona called? | `name` — "Inkwell Von Comitizen" |
 | What's their job title? | `title` — "Commit Message Artisan" |
 | What do they do? | `role` — 1-2 sentences expanding on title |
-| What's the unique key? | `id` — `_bmad/agents/{name}/{name}.md` |
+| What's the unique key? | `id` — `agents/bmad-{name}/agent.yaml` |
 
 ---
 
@@ -117,10 +117,10 @@ title: 'Commit Message Artisan'
 ```yaml
 # ❌ id path mismatch
 # File: my-agent.agent.yaml
-id: _bmad/agents/different-agent/different-agent.md
+id: agents/bmad-different-agent/agent.yaml
 
 # ✅ Fix: match filename
-id: _bmad/agents/my-agent/my-agent.md
+id: agents/bmad-my-agent/agent.yaml
 ```
 
 ```yaml

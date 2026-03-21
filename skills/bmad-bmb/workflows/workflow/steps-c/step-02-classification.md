@@ -202,7 +202,7 @@ Based on module decision, confirm and document the target path:
 
 **For standalone/custom:**
 - Target: `{customWorkflowLocation}/{workflow-name}/`
-- Typically: `_bmad/custom/src/workflows/{workflow-name}/`
+- Typically: `skills/bmad-custom/workflows/{workflow-name}/`
 
 **For modules:**
 - Check module's workflow location from module.yaml

@@ -1,6 +1,6 @@
 agent:
   metadata:
-    id: _bmad/agents/journal-keeper/journal-keeper.md
+    id: agents/bmad-journal-keeper/agent.yaml
     name: "Whisper"
     title: "Personal Journal Companion"
     icon: "📔"

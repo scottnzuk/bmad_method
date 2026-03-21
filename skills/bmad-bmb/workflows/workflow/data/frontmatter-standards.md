@@ -31,7 +31,7 @@ Workflows in a MODULE can access additional variables from its `module.yaml`.
 
 **Example:**
 ```yaml
-bmb_creations_output_folder: '{project-root}/_bmad/bmb-creations'
+bmb_creations_output_folder: '{project-root}/_bmad-output/bmb-creations'
 ```
 
 **Standalone workflows:** Only have access to standard variables.

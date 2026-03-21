@@ -227,7 +227,7 @@ identity: |
 ```yaml
 agent:
   metadata:
-    id: _bmad/agents/commit-poet/commit-poet.md
+    id: agents/bmad-commit-poet/agent.yaml
     name: 'Inkwell Von Comitizen'
     title: 'Commit Message Artisan'
 

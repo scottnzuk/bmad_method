@@ -11,7 +11,7 @@ description: '[Brief description of what this step accomplishes]'
 
 <!-- Path Definitions -->
 
-workflow\*path: '{project-root}/_bmad/[module]/reference/workflows/[workflow-name]' # the folder the workflow.md file is in
+workflow\*path: '{project-root}/skills/bmad-{module}/workflows/[workflow-name]' # the folder the workflow.md file is in
 
 # File References (all use {variable} format in file)
 

@@ -99,7 +99,7 @@ done
 ```
 
 **What we're catching:**
-- Content like: `Load {project-root}/_bmad/foo/workflows/.../file.csv`
+- Content like: `Load {project-root}/skills/bmad-foo/workflows/.../file.csv`
 - Should be: `Load {dataFile}` (frontmatter variable with a relative path like ../data/file.csv)
 
 **SKIP:** Paths using KNOWN_CONFIG_VARIABLES (these are valid exceptions)

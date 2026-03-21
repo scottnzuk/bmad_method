@@ -82,7 +82,7 @@ With content:
 name: {workflow_name}
 description: {workflow_description}
 web_bundle: true
-installed_path: '{project-root}/_bmad/{module_code}/workflows/{workflow_folder_name}'
+installed_path: '{project-root}/skills/bmad-{module_code}/workflows/{workflow_folder_name}'
 ---
 ```
 

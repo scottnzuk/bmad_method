@@ -10,7 +10,7 @@
 > ⚠️ **CRITICAL:** Read EVERY file in the File List - verify implementation against story requirements
 > ⚠️ **CRITICAL:** Tasks marked complete but not done = CRITICAL finding
 > ⚠️ **CRITICAL:** Acceptance Criteria not implemented = HIGH severity finding
-> ⚠️ **CRITICAL:** Do not review files that are not part of the application's source code. Always exclude the _bmad/ and _bmad-output/ folders from the review. Always exclude IDE and CLI configuration folders like .cursor/ and .windsurf/ and .claude/
+> ⚠️ **CRITICAL:** Do not review files that are not part of the application's source code. Always exclude the .a0proj/ and skills/ framework folders from the review. Always exclude IDE and CLI configuration folders like .cursor/ and .windsurf/ and .claude/
 
 ## Step 1 — Load story and discover changes
 
