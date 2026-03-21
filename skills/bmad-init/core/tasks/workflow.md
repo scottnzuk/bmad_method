@@ -86,13 +86,13 @@
           [a] Advanced Elicitation, [c] Continue, [p] Party-Mode, [y] YOLO the rest of this document only. WAIT for response.
 
               **If response** = `a`:
-                  - **Action:** Start the advanced elicitation workflow {project-root}/_bmad/core/workflows/advanced-elicitation/workflow.xml
+                  - **Action:** Start the advanced elicitation workflow {project-root}/skills/bmad-init/core/workflows/advanced-elicitation/workflow.xml
 
               **If response** = `c`:
                   - **Action:** Continue to next step
 
               **If response** = `p`:
-                  - **Action:** Start the party-mode workflow {project-root}/_bmad/core/workflows/party-mode/workflow.md
+                  - **Action:** Start the party-mode workflow {project-root}/skills/bmad-init/core/workflows/party-mode/workflow.md
 
               **If response** = `y`:
                   - **Action:** Enter #yolo mode for the rest of the workflow
@@ -230,7 +230,7 @@ _Smart file discovery and loading based on input_file_patterns_
 
 • This is the complete workflow execution engine
       • You MUST Follow instructions exactly as written
-      • The workflow execution engine is governed by: {project-root}/_bmad/core/tasks/workflow.xml
+      • The workflow execution engine is governed by: {project-root}/skills/bmad-init/core/tasks/workflow.xml
       • You MUST have already loaded and processed: {installed_path}/workflow.yaml
       • This workflow uses INTENT-DRIVEN PLANNING - adapt organically to product type and context
       • YOU ARE FACILITATING A CONVERSATION With a user to produce a final document step by step. The whole process is meant to be

@@ -25,7 +25,7 @@ This uses **step-file architecture** for focused execution:
 
 ### Configuration Loading
 
-Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve:
+Load config from `{project-root}/skills/bmad-bmm/config.yaml` and resolve:
 
 - `user_name`, `communication_language`, `user_skill_level`
 - `planning_artifacts`, `implementation_artifacts`
@@ -34,14 +34,14 @@ Load config from `{project-root}/_bmad/bmm/config.yaml` and resolve:
 
 ### Paths
 
-- `installed_path` = `{project-root}/_bmad/bmm/workflows/bmad-quick-flow/quick-dev`
+- `installed_path` = `{project-root}/skills/bmad-bmm/workflows/bmad-quick-flow/quick-dev`
 - `project_context` = `**/project-context.md` (load if exists)
 
 ### Related Workflows
 
-- `quick_spec_workflow` = `{project-root}/_bmad/bmm/workflows/bmad-quick-flow/quick-spec/workflow.md`
-- `party_mode_exec` = `{project-root}/_bmad/core/workflows/party-mode/workflow.md`
-- `advanced_elicitation` = `{project-root}/_bmad/core/workflows/advanced-elicitation/workflow.md`
+- `quick_spec_workflow` = `{project-root}/skills/bmad-bmm/workflows/bmad-quick-flow/quick-spec/workflow.md`
+- `party_mode_exec` = `{project-root}/skills/bmad-init/core/workflows/party-mode/workflow.md`
+- `advanced_elicitation` = `{project-root}/skills/bmad-init/core/workflows/advanced-elicitation/workflow.md`
 
 ---
 
@@ -65,5 +65,5 @@ echo "State written: $STATE_FILE"
 
 Valid phase values: `ready` | `1-analysis` | `2-planning` | `3-solutioning` | `4-implementation` | `bmb` | `cis`
 
-Read fully and follow: `{project-root}/_bmad/bmm/workflows/bmad-quick-flow/quick-dev/steps/step-01-mode-detection.md` to begin the workflow.
-Read fully and follow: `{project-root}/_bmad/bmm/workflows/bmad-quick-flow/quick-dev/steps/step-01-mode-detection.md` to begin the workflow.
+Read fully and follow: `{project-root}/skills/bmad-bmm/workflows/bmad-quick-flow/quick-dev/steps/step-01-mode-detection.md` to begin the workflow.
+Read fully and follow: `{project-root}/skills/bmad-bmm/workflows/bmad-quick-flow/quick-dev/steps/step-01-mode-detection.md` to begin the workflow.

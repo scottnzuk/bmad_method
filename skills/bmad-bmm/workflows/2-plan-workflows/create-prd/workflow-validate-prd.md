@@ -1,7 +1,7 @@
 ---
 name: validate-prd
 description: 'Validate a PRD against standards. Use when the user says "validate this PRD" or "run PRD validation"'
-main_config: '{project-root}/_bmad/bmm/config.yaml'
+main_config: '{project-root}/skills/bmad-bmm/config.yaml'
 validateWorkflow: './steps-v/step-v-01-discovery.md'
 ---
 

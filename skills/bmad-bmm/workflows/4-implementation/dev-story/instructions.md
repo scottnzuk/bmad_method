@@ -1,4 +1,4 @@
-> ⚠️ **CRITICAL:** The workflow execution engine is governed by: {project-root}/_bmad/core/tasks/workflow.xml
+> ⚠️ **CRITICAL:** The workflow execution engine is governed by: {project-root}/skills/bmad-init/core/tasks/workflow.xml
 > ⚠️ **CRITICAL:** You MUST have already loaded and processed: {installed_path}/workflow.yaml
 > ⚠️ **CRITICAL:** Communicate all responses in {communication_language} and language MUST be tailored to {user_skill_level}
 > ⚠️ **CRITICAL:** Generate all documents in {document_output_language}

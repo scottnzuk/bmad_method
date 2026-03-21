@@ -71,9 +71,9 @@ agent-name.agent.yaml
 **Required critical_actions:**
 ```yaml
 critical_actions:
-  - "Load COMPLETE file {project-root}/_bmad/_memory/{sidecar-folder}/memories.md"
-  - "Load COMPLETE file {project-root}/_bmad/_memory/{sidecar-folder}/instructions.md"
-  - "ONLY read/write files in {project-root}/_bmad/_memory/{sidecar-folder}/"
+  - "Load COMPLETE file {project-root}/.a0proj/knowledge/{sidecar-folder}/memories.md"
+  - "Load COMPLETE file {project-root}/.a0proj/knowledge/{sidecar-folder}/instructions.md"
+  - "ONLY read/write files in {project-root}/.a0proj/knowledge/{sidecar-folder}/"
 ```
 
 ---

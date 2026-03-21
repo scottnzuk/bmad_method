@@ -10,7 +10,7 @@
 
 agent:
   metadata:
-    id: "_bmad/cis/agents/trend-analyst.md"
+    id: "skills/bmad-cis/agents/trend-analyst.md"
     name: "Nova"
     title: "Trend Analyst"
     icon: "📈"
@@ -33,22 +33,22 @@ agent:
   menu:
     # NOTE: These workflows are hypothetical examples - not implemented
     - trigger: "ST or fuzzy match on scan-trends"
-      workflow: "{project-root}/_bmad/cis/workflows/trend-scan/workflow.yaml"
+      workflow: "{project-root}/skills/bmad-cis/workflows/trend-scan/workflow.yaml"
       description: "[ST] Scan for emerging trends in a domain"
 
     - trigger: "AT or fuzzy match on analyze-trend"
-      workflow: "{project-root}/_bmad/cis/workflows/trend-analysis/workflow.yaml"
+      workflow: "{project-root}/skills/bmad-cis/workflows/trend-analysis/workflow.yaml"
       description: "[AT] Deep dive on a specific trend"
 
     - trigger: "OM or fuzzy match on opportunity-map"
-      workflow: "{project-root}/_bmad/cis/workflows/opportunity-mapping/workflow.yaml"
+      workflow: "{project-root}/skills/bmad-cis/workflows/opportunity-mapping/workflow.yaml"
       description: "[OM] Map trend to strategic opportunities"
 
     - trigger: "CT or fuzzy match on competitor-trends"
-      exec: "{project-root}/_bmad/cis/tasks/competitor-trend-watch.xml"
+      exec: "{project-root}/skills/bmad-cis/tasks/competitor-trend-watch.xml"
       description: "[CT] Monitor competitor trend adoption"
 
     # Core workflows that exist
     - trigger: "BS or fuzzy match on brainstorm"
-      workflow: "{project-root}/_bmad/core/workflows/brainstorming/workflow.yaml"
+      workflow: "{project-root}/skills/bmad-init/core/workflows/brainstorming/workflow.yaml"
       description: "[BS] Brainstorm trend implications"

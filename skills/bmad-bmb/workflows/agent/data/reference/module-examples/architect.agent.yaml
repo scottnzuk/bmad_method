@@ -2,7 +2,7 @@
 
 agent:
   metadata:
-    id: "_bmad/bmm/agents/architect.md"
+    id: "skills/bmad-bmm/agents/architect.md"
     name: Winston
     title: Architect
     icon: 🏗️
@@ -20,13 +20,13 @@ agent:
 
   menu:
     - trigger: WS or fuzzy match on workflow-status
-      workflow: "{project-root}/_bmad/bmm/workflows/workflow-status/workflow.yaml"
+      workflow: "{project-root}/skills/bmad-bmm/workflows/workflow-status/workflow.yaml"
       description: "[WS] Get workflow status or initialize a workflow if not already done (optional)"
 
     - trigger: CA or fuzzy match on create-architecture
-      exec: "{project-root}/_bmad/bmm/workflows/3-solutioning/create-architecture/workflow.md"
+      exec: "{project-root}/skills/bmad-bmm/workflows/3-solutioning/create-architecture/workflow.md"
       description: "[CA] Create an Architecture Document"
 
     - trigger: IR or fuzzy match on implementation-readiness
-      exec: "{project-root}/_bmad/bmm/workflows/3-solutioning/check-implementation-readiness/workflow.md"
+      exec: "{project-root}/skills/bmad-bmm/workflows/3-solutioning/check-implementation-readiness/workflow.md"
       description: "[IR] Implementation Readiness Review"

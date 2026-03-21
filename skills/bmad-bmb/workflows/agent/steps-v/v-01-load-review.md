@@ -6,8 +6,8 @@ nextStepFile: './v-02a-validate-metadata.md'
 validationReport: '{bmb_creations_output_folder}/validation-report-{agent-name}.md'
 agentMetadata: ../data/agent-metadata.md
 
-advancedElicitationTask: '{project-root}/_bmad/core/workflows/advanced-elicitation/workflow.md'
-partyModeWorkflow: '{project-root}/_bmad/core/workflows/party-mode/workflow.md'
+advancedElicitationTask: '{project-root}/skills/bmad-init/core/workflows/advanced-elicitation/workflow.md'
+partyModeWorkflow: '{project-root}/skills/bmad-init/core/workflows/party-mode/workflow.md'
 ---
 
 # Validate Step 1: Load Agent for Review

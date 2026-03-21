@@ -10,7 +10,7 @@
 
 agent:
   metadata:
-    id: "_bmad/bmm/agents/security-engineer.md"
+    id: "skills/bmad-bmm/agents/security-engineer.md"
     name: "Sam"
     title: "Security Engineer"
     icon: "🔐"
@@ -33,17 +33,17 @@ agent:
   menu:
     # NOTE: These workflows are hypothetical examples - not implemented
     - trigger: "TM or fuzzy match on threat-model"
-      workflow: "{project-root}/_bmad/bmm/workflows/threat-model/workflow.yaml"
+      workflow: "{project-root}/skills/bmad-bmm/workflows/threat-model/workflow.yaml"
       description: "[TM] Create STRIDE threat model for architecture"
 
     - trigger: "SR or fuzzy match on security-review"
-      workflow: "{project-root}/_bmad/bmm/workflows/security-review/workflow.yaml"
+      workflow: "{project-root}/skills/bmad-bmm/workflows/security-review/workflow.yaml"
       description: "[SR] Review code/design for security issues"
 
     - trigger: "OC or fuzzy match on owasp-check"
-      exec: "{project-root}/_bmad/bmm/tasks/owasp-top-10.xml"
+      exec: "{project-root}/skills/bmad-bmm/tasks/owasp-top-10.xml"
       description: "[OC] Check against OWASP Top 10"
 
     - trigger: "CC or fuzzy match on compliance-check"
-      workflow: "{project-root}/_bmad/bmm/workflows/compliance-check/workflow.yaml"
+      workflow: "{project-root}/skills/bmad-bmm/workflows/compliance-check/workflow.yaml"
       description: "[CC] Verify compliance requirements (SOC2, GDPR, etc.)"

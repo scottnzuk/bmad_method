@@ -161,7 +161,7 @@ done
 ```bash
 # Check if in non-bmb module, then search for bmb-specific paths
 if pwd | grep -q "/modules/[^/]\+/" && ! pwd | grep -q "/bmb/"; then
-  grep -rn "{project-root}/_bmad/bmb/" steps-c/ steps-e/ steps-v/ 2>/dev/null || echo "No bmb-specific paths found"
+  grep -rn "{project-root}/skills/bmad-bmb/" steps-c/ steps-e/ steps-v/ 2>/dev/null || echo "No bmb-specific paths found"
 fi
 ```
 

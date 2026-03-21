@@ -1,4 +1,4 @@
-> ⚠️ **CRITICAL:** The workflow execution engine is governed by: {project-root}/_bmad/core/tasks/workflow.md
+> ⚠️ **CRITICAL:** The workflow execution engine is governed by: {project-root}/skills/bmad-init/core/tasks/workflow.md
 > ⚠️ **CRITICAL:** You MUST have already loaded and processed: {installed_path}/workflow.yaml
 > ⚠️ **CRITICAL:** Communicate all responses in {communication_language} and generate all documents in {document_output_language}
 > ⚠️ **CRITICAL:** 🔥 CRITICAL MISSION: You are creating the ULTIMATE story context engine that prevents LLM developer mistakes, omissions or
@@ -280,7 +280,7 @@
 
 ## Step 6 — Update sprint status and finalize
 
-> **Invoke Task:** Validate against checklist at {installed_path}/checklist.md using _bmad/core/tasks/validate-workflow.md
+> **Invoke Task:** Validate against checklist at {installed_path}/checklist.md using skills/bmad-init/core/tasks/validate-workflow.md
 - **Action:** Save story document unconditionally
 
 **If** sprint status file exists:

@@ -64,7 +64,7 @@ someData: './data/config.csv'
 outputFile: '{planning_artifacts}/product-brief-{{project_name}}-{{date}}.md'
 
 # External references - use {project-root}
-advancedElicitationTask: '{project-root}/_bmad/core/workflows/advanced-elicitation/workflow.md'
+advancedElicitationTask: '{project-root}/skills/bmad-init/core/workflows/advanced-elicitation/workflow.md'
 ---
 ```
 
@@ -100,7 +100,7 @@ nextStepFile: './step-02-foo.md'
 | Step to Step (same folder) | `./filename.md` | `./step-02-vision.md` |
 | Step to Template (parent) | `../filename.md` | `../template.md` |
 | Step to Subfolder | `./subfolder/file.md` | `./data/config.csv` |
-| External References | `{project-root}/...` | `{project-root}/_bmad/core/workflows/...` |
+| External References | `{project-root}/...` | `{project-root}/skills/bmad-init/core/workflows/...` |
 | Output Files | `{folder_variable}/...` | `{planning_artifacts}/output.md` |
 
 ---
