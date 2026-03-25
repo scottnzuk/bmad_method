@@ -193,7 +193,7 @@ Then restart Agent Zero.
 **Symptom:** Agent starts fresh each session with no memory of prior decisions.
 
 **Fix:**
-1. Confirm the agent has a `plugins/a0_memory/config.json` with the correct `memory_subdir`
+1. Confirm the agent has a `plugins/_memory/config.json` with the correct `memory_subdir`
 2. Confirm `agent_knowledge_subdir` is set in the agent's `settings.json`
 3. Confirm `.a0proj/memory/` directory is writable and not empty for active agents
 4. Agents with no prior `memory_save` calls have no FAISS store yet — this is normal (lazy seeding)
