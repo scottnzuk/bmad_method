@@ -135,48 +135,6 @@ def read_tests(test_dir: Path):
         return best[0], best[1], mtime
     return None, None, mtime
 
-def read_langfuse_config():
-    """Search for langfuse config in common plugin locations."""
-    candidates = [
-        Path("/a0/usr/plugins/langfuse-observability/config.json"),
-        Path("/a0/plugins/langfuse-observability/config.json"),
-    ]
-    for cfg_path in candidates:
-        if cfg_path.exists():
-            try:
-                cfg = json.loads(cfg_path.read_text())
-                if cfg.get("langfuse_enabled") and cfg.get("langfuse_public_key") and cfg.get("langfuse_secret_key"):
-                    return cfg
-            except Exception:
-                pass
-    return None
-
-def fetch_langfuse(cfg):
-    host  = cfg.get("langfuse_host","https://cloud.langfuse.com").rstrip("/")
-    pub   = cfg["langfuse_public_key"]
-    sec   = cfg["langfuse_secret_key"]
-    token = base64.b64encode((pub + ":" + sec).encode()).decode()
-    hdrs  = {"Authorization": "Basic " + token, "Content-Type": "application/json"}
-    result = {}
-    try:
-        req = urllib.request.Request(host + "/api/public/traces?limit=50&page=1", headers=hdrs)
-        with urllib.request.urlopen(req, timeout=5) as r:
-            data   = json.loads(r.read())
-            traces = data.get("data",[])
-            result["trace_count"] = data.get("meta",{}).get("totalItems", len(traces))
-            hits = {}
-            for t in traces:
-                for k in AGENT_NAMES:
-                    if k in t.get("name","").lower():
-                        hits[k] = hits.get(k,0) + 1
-            if hits:
-                top = sorted(hits.items(), key=lambda x: x[1], reverse=True)[:3]
-                result["top_agents"] = [(AGENT_NAMES.get(a,a), c) for a,c in top]
-            if traces:
-                result["last_trace"] = traces[0].get("timestamp","")[:16].replace("T"," ")
-    except Exception as e:
-        result["error"] = str(e)
-    return result
 
 
 def wwn(what, why, nxt, indent="   "):

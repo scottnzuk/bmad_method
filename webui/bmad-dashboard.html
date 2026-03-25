@@ -67,17 +67,7 @@
     .wwn-block{margin-top:8px;background:#2a2a1e;border-radius:6px;padding:8px 12px}
     .wwn-block p{font-size:.77rem;margin-bottom:3px}
     .wwn-block strong{color:#f9e2af}
-    /* Langfuse */
-    .lf-row{display:flex;gap:24px;flex-wrap:wrap}
-    .lf-stat label{font-size:.7rem;color:#6c7086;display:block}
-    .lf-stat span{font-size:.95rem;font-weight:700;color:#89b4fa}
-    .top-agents{margin-top:10px}
-    .top-agents h4{font-size:.72rem;color:#6c7086;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
-    .ta-row{display:flex;align-items:center;gap:8px;margin-bottom:3px}
-    .ta-bar-wrap{flex:1;height:5px;background:#313244;border-radius:3px;overflow:hidden}
-    .ta-bar{height:100%;background:#89b4fa;border-radius:3px}
-    .ta-name{font-size:.75rem;min-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .ta-count{font-size:.72rem;color:#6c7086;min-width:24px;text-align:right}
+
     /* Recommendation */
     .rec-section{background:#1a1a2e;border:1px solid #89b4fa40;border-radius:10px;padding:14px 16px;margin-bottom:14px}
     .rec-label{font-size:.8rem;color:#6c7086;margin-bottom:2px;text-transform:uppercase;letter-spacing:.06em}
@@ -263,42 +253,6 @@
               </div>
 
             </div>
-
-            <!-- 📊 Langfuse -->
-            <div class="section">
-              <div class="section-head">
-                <span class="section-title">📊 Langfuse Telemetry</span>
-                <span style="font-size:.75rem" :style="$store.bmadDashboard.data.langfuse.status === 'connected' ? 'color:#a6e3a1' : 'color:#6c7086'"
-                      x-text="$store.bmadDashboard.data.langfuse.status"></span>
-              </div>
-              <div class="section-body">
-                <template x-if="$store.bmadDashboard.data.langfuse.status === 'connected'">
-                  <div>
-                    <div class="lf-row">
-                      <div class="lf-stat">
-                        <label>Total Traces</label>
-                        <span x-text="$store.bmadDashboard.data.langfuse.trace_count"></span>
-                      </div>
-                      <div class="lf-stat" x-show="$store.bmadDashboard.data.langfuse.last_trace">
-                        <label>Last Trace</label>
-                        <span style="font-size:.85rem" x-text="$store.bmadDashboard.data.langfuse.last_trace"></span>
-                      </div>
-                      <div class="lf-stat">
-                        <label>Host</label>
-                        <span style="font-size:.72rem;color:#6c7086" x-text="$store.bmadDashboard.data.langfuse.host"></span>
-                      </div>
-                    </div>
-                    <div class="top-agents" x-show="$store.bmadDashboard.data.langfuse.top_agents && $store.bmadDashboard.data.langfuse.top_agents.length > 0">
-                      <h4>Top Agents</h4>
-                      <template x-for="(agent, idx) in $store.bmadDashboard.data.langfuse.top_agents" :key="agent.name">
-                        <div class="ta-row">
-                          <span class="ta-name" x-text="agent.name"></span>
-                          <div class="ta-bar-wrap">
-                            <div class="ta-bar" :style="'width:' + Math.min(100, (agent.count / ($store.bmadDashboard.data.langfuse.top_agents[0].count || 1)) * 100) + '%'"></div>
-                          </div>
-                          <span class="ta-count" x-text="agent.count"></span>
-                        </div>
-                      </template>
                     </div>
                   </div>
                 </template>

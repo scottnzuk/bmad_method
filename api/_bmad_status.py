@@ -58,19 +58,6 @@ def _resolve_project_root(ctxid: str | None) -> Path | None:
     return None  # no BMAD project found
 
 
-# Langfuse config: check user plugins first, then builtin (A0 priority order)
-def _find_langfuse_cfg() -> Path | None:
-    try:
-        from helpers import plugins
-        for root in plugins.get_plugin_roots("langfuse-observability"):
-            cfg = Path(root) / "config.json"
-            if cfg.exists():
-                return cfg
-    except Exception:
-        pass
-    fallback = Path("/a0/plugins/langfuse-observability/config.json")
-    return fallback if fallback.exists() else None
-
 
 AGENT_NAMES = {
     "bmad-master":"BMad Master","bmad-analyst":"Mary (Analyst)",
@@ -118,7 +105,6 @@ class BmadStatus(ApiHandler):
                 "agents":         self._check_agents(),
                 "skills":         self._check_skills(),
                 "tests":          self._read_tests(test_dir),
-                "langfuse":       self._fetch_langfuse(),
                 "recommendation": self._recommend(state_file, test_dir),
             }
         except Exception as e:
@@ -178,39 +164,6 @@ class BmadStatus(ApiHandler):
             return {"status":"ok","passed":int(best[0]),"total":int(best[1]),"verified":mtime,
                     "failing":int(best[1])-int(best[0])}
         return {"status":"no_match","verified":mtime}
-
-    def _fetch_langfuse(self):
-        langfuse_cfg = _find_langfuse_cfg()
-        if langfuse_cfg is None or not langfuse_cfg.exists():
-            return {"status":"unavailable"}
-        try:
-            cfg = json.loads(langfuse_cfg.read_text())
-            if not (cfg.get("langfuse_enabled") and cfg.get("langfuse_public_key") and cfg.get("langfuse_secret_key")):
-                return {"status":"disabled"}
-        except Exception:
-            return {"status":"config_error"}
-        try:
-            host  = cfg.get("langfuse_host","https://cloud.langfuse.com").rstrip("/")
-            token = base64.b64encode((cfg["langfuse_public_key"]+":"+cfg["langfuse_secret_key"]).encode()).decode()
-            hdrs  = {"Authorization":"Basic "+token,"Content-Type":"application/json"}
-            req   = urllib.request.Request(host+"/api/public/traces?limit=50&page=1",headers=hdrs)
-            with urllib.request.urlopen(req,timeout=5) as r:
-                data   = json.loads(r.read())
-                traces = data.get("data",[])
-                hits   = {}
-                for t in traces:
-                    for k in AGENT_NAMES:
-                        if k in t.get("name","").lower(): hits[k]=hits.get(k,0)+1
-                top = sorted(hits.items(),key=lambda x:x[1],reverse=True)[:3]
-                return {
-                    "status":      "connected",
-                    "host":        cfg.get("langfuse_host",""),
-                    "trace_count": data.get("meta",{}).get("totalItems",len(traces)),
-                    "last_trace":  traces[0].get("timestamp","")[:16].replace("T"," ") if traces else None,
-                    "top_agents":  [{"name":AGENT_NAMES.get(a,a),"count":c} for a,c in top],
-                }
-        except Exception as e:
-            return {"status":"error","error":str(e)}
 
     def _recommend(self, state_file: Path | None, test_dir: Path | None):
         state  = self._read_state(state_file)
