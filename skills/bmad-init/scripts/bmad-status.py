@@ -258,25 +258,6 @@ def main():
             "Run test suite and save to test-artifacts/"
         )
 
-    # DS-05 Langfuse
-    cfg = read_langfuse_config()
-    if cfg:
-        print()
-        lf = fetch_langfuse(cfg)
-        if "error" in lf and not lf.get("trace_count"):
-            print("\U0001f4ca Langfuse: \u26a0\ufe0f  API error \u2014 " + lf["error"])
-        else:
-            print("\U0001f4ca Langfuse: \u2705 connected (" + cfg["langfuse_host"] + ")")
-            if "trace_count" in lf:
-                print("   Traces:    " + str(lf["trace_count"]) + " total")
-            if "last_trace" in lf:
-                print("   Last run:  " + lf["last_trace"])
-            if "top_agents" in lf:
-                print("   Top agents:")
-                for n, c in lf["top_agents"]:
-                    print("      " + n + ": " + str(c) + " traces")
-    else:
-        print("\n\U0001f4ca Langfuse: unavailable \u2014 plugin config not found or disabled")
 
     # v0.5 Next-Action Recommendation Engine
     issues, label, action = recommend_next(state, broken, broken_s, passed, total_t, agents_dir)
