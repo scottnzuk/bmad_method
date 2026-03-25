@@ -1,8 +1,8 @@
 import { createStore } from "/js/AlpineStore.js";
+import { toastFrontendError } from "/components/notifications/notification-store.js";
 
 export const store = createStore("bmadDashboard", {
     loading: false,
-    error: "",
     data: null,
     lastRefresh: null,
 
@@ -31,7 +31,7 @@ export const store = createStore("bmadDashboard", {
             this.data = json;
             this.lastRefresh = new Date().toLocaleTimeString();
         } catch (e) {
-            this.error = e.message;
+            toastFrontendError(e.message, "BMAD Method");
         } finally {
             this.loading = false;
         }

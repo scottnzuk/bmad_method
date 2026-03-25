@@ -1,5 +1,5 @@
+import asyncio
 import json
-import subprocess
 from pathlib import Path
 from helpers.extension import Extension
 
@@ -47,7 +47,7 @@ class BmadAutoBrief(Extension):
     Only fires for agent 0 with bmad-master profile, and only on fresh sessions.
     """
 
-    def execute(self, **kwargs):
+    async def execute(self, **kwargs):
         # Only for main agent (not subordinates)
         if self.agent.number != 0:
             return
@@ -71,16 +71,16 @@ class BmadAutoBrief(Extension):
         if project_path:
             cmd_args.extend(["--project-path", project_path])
 
-        # Run STATUS script synchronously
+        # Run STATUS script asynchronously — non-blocking
         try:
-            result = subprocess.run(
-                cmd_args,
-                capture_output=True,
-                text=True,
-                timeout=10
+            proc = await asyncio.create_subprocess_exec(
+                *cmd_args,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
             )
-            status_output = result.stdout.strip()
-        except subprocess.TimeoutExpired:
+            stdout, _ = await asyncio.wait_for(proc.communicate(), timeout=10)
+            status_output = stdout.decode("utf-8", errors="replace").strip()
+        except asyncio.TimeoutError:
             status_output = "⚠️ Status unavailable: timeout"
         except Exception as e:
             status_output = f"⚠️ Status unavailable: {e}"
@@ -88,28 +88,7 @@ class BmadAutoBrief(Extension):
         if not status_output:
             return
 
-        # Read existing initial message and inject status
-        try:
-            initial_msg_raw = self.agent.read_prompt("fw.initial_message.md")
-            initial_msg_json = json.loads(initial_msg_raw)
-            existing_text = initial_msg_json.get("tool_args", {}).get("text", "")
-
-            # Prepend status block
-            status_block = f"## 📊 Project Status\n\n~~~\n{status_output}\n~~~\n\n---\n\n"
-            initial_msg_json["tool_args"]["text"] = status_block + existing_text
-
-            updated_msg = json.dumps(initial_msg_json)
-        except Exception:
-            updated_msg = json.dumps({
-                "thoughts": ["Showing BMAD project status brief"],
-                "headline": "BMAD Status Brief",
-                "tool_name": "response",
-                "tool_args": {"text": f"## 📊 Project Status\n\n~~~\n{status_output}\n~~~"}
-            })
-
-        # Inject directly as a separate log entry before the greeting
-        from agent import LoopData
-        self.agent.loop_data = LoopData(user_message=None)
+        # Inject status as a log entry before the greeting
         self.agent.context.log.log(
             type="response",
             content=f"## 📊 Project Status\n\n```\n{status_output}\n```",

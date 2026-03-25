@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>BMAD Method</title>
-  <script type="module" src="/usr/plugins/bmad_method/webui/bmad-dashboard-store.js"></script>
+  <script type="module" src="/plugins/bmad_method/webui/bmad-dashboard-store.js"></script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
@@ -120,9 +120,6 @@
         </template>
 
         <!-- Error -->
-        <template x-if="$store.bmadDashboard.error && !$store.bmadDashboard.data">
-          <div class="error-state">⚠️ <span x-text="$store.bmadDashboard.error"></span></div>
-        </template>
 
         <!-- Main content -->
         <template x-if="$store.bmadDashboard.data">
