@@ -1,4 +1,4 @@
-module,agent,display-name,menu-code,description,action,args,phase,after,before,required,output-location,outputs
+module,skill,display-name,menu-code,description,action,args,phase,after,before,required,output-location,outputs
 tea,tea,Teach Me Testing,TMT,Teach testing fundamentals through 7 sessions (TEA Academy),bmad-teach-me-testing,skills/bmad-tea/workflows/testarch/teach-me-testing/workflow.md,0-learning,,,false,test_artifacts,progress file|session notes|certificate
 tea,tea,Test Design,TD,Risk-based test planning,bmad-testarch-test-design,skills/bmad-tea/workflows/testarch/test-design/workflow.yaml,3-solutioning,,,false,test_artifacts,test design document
 tea,tea,Test Framework,TF,Initialize production-ready test framework,bmad-testarch-framework,skills/bmad-tea/workflows/testarch/framework/workflow.yaml,3-solutioning,,,false,test_artifacts,framework scaffold

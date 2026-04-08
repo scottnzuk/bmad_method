@@ -1,4 +1,4 @@
-module,phase,name,code,sequence,workflow-file,command,required,agent,options,description,output-location,outputs
+module,phase,name,code,sequence,workflow-file,command,required,skill,options,description,output-location,outputs
 core,anytime,Brainstorming,BSP,,skills/bmad-init/core/workflows/brainstorming/workflow.md,bmad-brainstorming,false,analyst,,"Generate diverse ideas through interactive techniques. Use early in ideation phase or when stuck generating ideas.",{output_folder}/brainstorming/brainstorming-session-{{date}}.md,,
 core,anytime,Party Mode,PM,,skills/bmad-init/core/workflows/party-mode/workflow.md,bmad-party-mode,false,party-mode facilitator,,"Orchestrate multi-agent discussions. Use when you need multiple agent perspectives or want agents to collaborate.",,
 core,anytime,bmad-help,BH,,skills/bmad-init/core/tasks/help.md,bmad-help,false,,,"Get unstuck by showing what workflow steps come next or answering BMad Method questions.",,

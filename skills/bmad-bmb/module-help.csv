@@ -1,4 +1,4 @@
-module,agent,display-name,menu-code,description,action,args,phase,after,before,required,output-location,outputs
+module,skill,display-name,menu-code,description,action,args,phase,after,before,required,output-location,outputs
 bmb,agent-builder,Create Agent,BAG,Create a new BMAD agent with best practices and compliance,bmad-agent-builder-workflow,skills/bmad-bmb/workflows/agent/workflow-create-agent.md,anytime,,,false,bmb_creations_output_folder,agent
 bmb,agent-builder,Edit Agent,EA,Edit existing BMAD agents while maintaining compliance,,skills/bmad-bmb/workflows/agent/workflow-edit-agent.md,anytime,,,false,bmb_creations_output_folder,agent
 bmb,agent-builder,Validate Agent,VA,Validate existing BMAD agents and offer to improve deficiencies,,skills/bmad-bmb/workflows/agent/workflow-validate-agent.md,anytime,,,false,agent being validated folder,validation report
@@ -13,3 +13,4 @@ bmb,workflow-builder,Max Parallel Validate,MV,Run validation checks in MAX-PARAL
 bmb,workflow-builder,Rework Workflow,RW,Rework a Workflow to a V6 Compliant Version,,skills/bmad-bmb/workflows/workflow/workflow-rework-workflow.md,anytime,,,false,bmb_creations_output_folder,workflow
 bmb,agent-builder,Quality Scan Agent,QA,Comprehensive quality scan and optimization for existing BMAD agents — produces JSON + HTML report,,skills/bmad-bmb/quality-scanner/agent-builder/quality-optimizer.md,anytime,,,false,bmb_reports_output_folder,quality report
 bmb,workflow-builder,Quality Scan Workflow,QW,Comprehensive quality scan and optimization for existing BMAD workflows — produces JSON + HTML report,,skills/bmad-bmb/quality-scanner/workflow-builder/quality-optimizer.md,anytime,,,false,bmb_reports_output_folder,quality report
+bmb,module-builder,Setup BMB Module,BS,Sets up BMad Builder module in a project. Use when the user requests to install bmb module configure BMad Builder or setup BMad Builder.,bmad-bmb-setup,skills/bmad-bmb/workflows/bmb-setup/SKILL.md,anytime,,,false,,
