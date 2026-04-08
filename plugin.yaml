@@ -1,7 +1,24 @@
 name: bmad_method
 title: BMAD Method
-description: BMAD Method Framework for Agent Zero — full software development lifecycle with 20 specialist agents across 4 modules (BMM, BMB, TEA, CIS), 5 skills, project-scoped shared memory store (native _memory plugin), and an interactive status dashboard.
-version: 1.0.1
+version: 1.0.2
+author: Vanja Emichi
+description: |
+  BMAD Method Framework for Agent Zero. Brings structured AI-assisted software
+  development to Agent Zero through 20 specialist agent personas across 4 modules:
+  BMM (Business Method Module) for full product lifecycle, BMB (Builder Module)
+  for BMAD toolchain creation, TEA (Testing Excellence Accelerator) for test
+  architecture and automation, and CIS (Creative Intelligence Suite) for ideation
+  and creative workflows. Includes bundled workflow skills, project-scoped FAISS
+  memory isolation, a phase-aware routing extension, and an interactive status dashboard.
+tags:
+  - bmad
+  - methodology
+  - agents
+  - development
+  - planning
+plugin_url: https://github.com/vanja-emichi/bmad_method
+supports_ui: true
+min_a0_version: "0.9.0"
 settings_sections: []
 per_project_config: false
 per_agent_config: false
