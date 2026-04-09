@@ -38,10 +38,10 @@ SKILL_TO_MODULE = {
 # Phase → relevant modules map
 PHASE_MODULES = {
     "ready":            ["core", "bmm", "bmb", "tea", "cis"],
-    "1-analysis":       ["core", "bmm"],
-    "2-planning":       ["core", "bmm"],
-    "3-solutioning":    ["core", "bmm", "tea"],
-    "4-implementation": ["core", "bmm", "tea"],
+    "1-analysis":       ["core", "bmm", "cis"],
+    "2-planning":       ["core", "bmm", "cis"],
+    "3-solutioning":    ["core", "bmm", "tea", "cis"],
+    "4-implementation": ["core", "bmm", "tea", "cis"],
     "bmb":              ["core", "bmb"],
     "cis":              ["core", "cis"],
 }
