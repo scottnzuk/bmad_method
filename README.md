@@ -1,16 +1,16 @@
 # BMAD Method for Agent Zero
 
+[![Version](https://img.shields.io/badge/version-1.0.4-blue)]() [![License: MIT](https://img.shields.io/badge/license-MIT-green)]() [![Agent Zero](https://img.shields.io/badge/A0-compatible-brightgreen)]()
+
 **Structured AI-assisted software development — from idea to shipped code.**
 
-BMAD (Business Method for Agile Development) is a structured AI-first product development framework. This plugin provides a full drop-in integration: 20 specialized agent personas, 5 global skills, and the complete workflow library — ready to use inside Agent Zero.
+BMAD (Business Method for Agile Development) is a structured AI-first product development framework. This plugin provides a full drop-in Agent Zero integration: 20 specialized agent personas, 5 global skills, and the complete workflow library.
 
 ---
 
 ## Quick Start
 
 **1. Install the plugin**
-
-Install via the Agent Zero Plugin Hub, or clone directly into your Agent Zero plugins folder:
 
 ~~~bash
 git clone https://github.com/vanja-emichi/bmad_method.git usr/plugins/bmad-method
@@ -24,7 +24,7 @@ Select the **BMad Master** profile in Agent Zero, then run:
 bmad init
 ~~~
 
-This sets up the project workspace, creates the `.a0proj/` configuration directory, and initializes project-scoped memory.
+This creates the project workspace and initializes project-scoped memory.
 
 **3. Start building**
 
@@ -34,11 +34,9 @@ Tell BMad Master what you want to build. It routes you to the right specialist f
 
 ## How It Works
 
-BMAD organizes software development into phases — Ideation → Planning → Architecture → Implementation → Testing. Each phase has one or more specialist agents who own it.
+BMAD organizes development into phases — Ideation → Planning → Architecture → Implementation → Testing. Each phase has specialist agents who own it.
 
-You start every session by talking to **BMad Master**, the orchestrator. It reads your project state and routes you to the right specialist. Specialists produce artifacts — briefs, PRDs, architecture docs, user stories, test plans — that the next phase consumes.
-
-Project state is tracked across sessions. Decisions made by the architect are visible to the developer. The sprint board survives restarts.
+You talk to **BMad Master**, the orchestrator. It reads project state and routes you to the right specialist. Specialists produce artifacts that the next phase consumes. State persists across sessions.
 
 ~~~
 User → BMad Master → [routes to specialist] → artifact produced → state updated → next phase
@@ -84,27 +82,30 @@ User → BMad Master → [routes to specialist] → artifact produced → state 
 
 ---
 
+## Skills Architecture
+
+Each BMAD module ships as an Agent Zero skill containing a `SKILL.md` manifest, a `module-help.csv` routing table, and a `workflows/` directory with step files. Skills are loaded on-demand — agents call `skills_tool:load` to get workflow instructions, then execute them exactly as defined. No workflow logic lives in agent prompts.
+
+---
+
 ## Prompt Architecture
 
-Each BMAD agent is built from a clean 3-layer boundary:
+Each agent is built from a clean 3-layer boundary:
 
 ~~~
 ┌─────────────────────────────────────────────────────────┐
 │  Agent Prompts  (WHO the agent is)                      │
-│  role.md · communication.md · tips.md ·                 │
-│  communication_additions.md                             │
+│  role.md · communication.md · tips.md                   │
 ├─────────────────────────────────────────────────────────┤
 │  Skills  (WHAT to execute)                              │
 │  SKILL.md — workflow routing, paths, execution protocol │
 ├─────────────────────────────────────────────────────────┤
 │  Project Instructions  (WHERE the project is)           │
-│  .a0proj/instructions/ — state, config, paths           │
+│  Project config + state                                 │
 └─────────────────────────────────────────────────────────┘
 ~~~
 
-**Agent prompts** define persona, communication style, and menu presentation.
-**Skills** are loaded on-demand and contain all workflow execution logic.
-**Project instructions** are written by `bmad init` and contain project-specific state and configuration.
+**Agent prompts** define persona, communication style, and menu presentation. **Skills** contain all workflow execution logic. **Project instructions** are written by `bmad init` and contain project-specific state and configuration.
 
 ---
 
@@ -112,39 +113,48 @@ Each BMAD agent is built from a clean 3-layer boundary:
 
 | Extension | Hook | Purpose |
 |-----------|------|----------|
-| `_80_bmad_routing_manifest.py` | `message_loop_prompts_after` | Dynamically builds routing manifest from `skills/*/module-help.csv`, filesystem artifact detection, and staleness warnings |
+| `_80_bmad_routing_manifest.py` | `message_loop_prompts_after` | Dynamically builds routing manifest from skill routing tables with artifact detection and staleness warnings |
 
 ---
 
 ## Memory Architecture
 
-- **Project-level FAISS store** — `.a0proj/memory/` — single vector database shared by all agents (structural isolation)
-- **Knowledge preload** — `.a0proj/knowledge/main/` — recursive FAISS scan on agent init
-- **No per-agent stores** — project-level isolation with cross-agent recall by design
+- **Project-level FAISS store** — single vector database shared by all agents (structural isolation)
+- **Knowledge preload** — recursive FAISS scan on agent init
+- **No per-agent stores** — cross-agent recall by design
 
 ---
 
 ## Dashboard
 
-BMAD ships a live project status dashboard. After installation, the BMAD button appears in Agent Zero's sidebar.
-
-The dashboard is **read-only** — it observes agent state without writing to it.
-
----
-
-## Version
-
-**Plugin:** 1.0.4
-**Upstream versions:** Core 6.2.2 · BMB 1.5.0 · TEA 1.9.1 · CIS 0.1.9
-
-See [CHANGELOG.md](./CHANGELOG.md) for full version history.
+BMAD ships a live project status dashboard. After installation, the BMAD button appears in Agent Zero's sidebar. The dashboard is **read-only** — it observes agent state without writing to it.
 
 ---
 
 ## Documentation
 
-- [Document Lifecycle Framework](./docs/document-lifecycle.md) — artifact staleness detection and consistency checks
-- [CHANGELOG.md](./CHANGELOG.md) — full version history
+| Document | Description |
+|----------|-------------|
+| [Quick Start](#quick-start) | Clone and initialize a BMAD project |
+| [Document Lifecycle](./docs/document-lifecycle.md) | Artifact staleness detection and consistency checks |
+| [CHANGELOG](./CHANGELOG.md) | Full version history |
+| [BMAD-METHOD Core](https://github.com/bmad-code-org/BMAD-METHOD) | Upstream framework architecture reference |
+| [Agent Zero](https://github.com/frdel/agent-zero) | Host platform |
+
+---
+
+## Version
+
+**Plugin:** 1.0.4 | **Upstream:** Core 6.2.2 · BMB 1.5.0 · TEA 1.9.1 · CIS 0.1.9
+
+See [CHANGELOG.md](./CHANGELOG.md) for full version history.
+
+---
+
+## Requirements
+
+- [Agent Zero](https://github.com/frdel/agent-zero) (latest stable release)
+- An LLM with large context window recommended (Claude Sonnet or better)
 
 ---
 
@@ -157,7 +167,6 @@ See [CHANGELOG.md](./CHANGELOG.md) for full version history.
 
 ---
 
-## Requirements
+## License
 
-- [Agent Zero](https://github.com/frdel/agent-zero) (latest stable release)
-- An LLM with large context window recommended (Claude Sonnet or better)
+MIT
