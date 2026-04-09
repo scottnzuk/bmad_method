@@ -7,6 +7,7 @@ BMAD Method brings a proven product development framework to Agent Zero. Instead
 ---
 
 ## Quick Start
+
 **1. Install the plugin**
 
 Install via the Agent Zero Plugin Hub, or clone directly into your Agent Zero plugins folder:
@@ -38,7 +39,8 @@ Tell BMad Master what you want to build. It routes you to the right specialist f
 | Agent personas | 20 | Specialist agents, each with a defined role and communication style |
 | Modules | 4 | BMM · BMB · TEA · CIS |
 | Workflow skills | 40+ | Bundled, phase-aware workflow definitions loaded on demand |
-| Routing extension | 1 | Phase-aware routing with live artifact detection and staleness warnings |
+| Routing extension | 1 | Phase-aware menu routing injected into every BMad Master session |
+| Status dashboard | 1 | Interactive WebUI panel showing project and sprint state |
 
 ---
 
@@ -151,45 +153,15 @@ The dashboard is read-only: it observes agent state without writing to it.
 
 ---
 
-## Quality
-
-The plugin ships with a behavioral test suite covering all routing, phase-transition, and specialist-handoff paths.
-
-**Latest results:** 54/54 PASS · Grade A (96/100) · 0 regressions
-
-Test artifacts: `.a0proj/_bmad-output/test-artifacts/`
-
----
-
 ## Version
 
 **Plugin:** 1.0.4  
 **Upstream versions:** Core 6.2.2 · BMB 1.5.0 · TEA 1.9.1 · CIS 0.1.9
 
 See [CHANGELOG.md](./CHANGELOG.md) for full version history.
-## What's New
-
-### v1.0.4
-
-- **Party Mode Persona Guard** — 8 prescriptive rules ensuring agents maintain distinct voices and never break character
-- **prfaq (Working Backwards) workflow** — Amazon Working Backwards methodology ported with 5-step architecture
-- **TEA extended knowledge** — 28 additional knowledge files for Murat (43 total)
-- **BMM Phase 2 validation** — PM + UX Designer routing verified end-to-end
-- **5 consecutive zero-regression sprints** — 69/69 PASS · Grade A+ (100/100)
-
-### v1.0.3
-
-- **Workflow sharding** — 38 step files across 6 BMM workflows with HALT compliance and resume
-- **Live artifact detection** — filesystem scanning + staleness warnings in EXTRAS
-- **Agent enrichment** — all 19 agents with 7+ principles and startup orientation
-- **TEA knowledge fragments** — 14 domain-specific files, dynamically loaded in 9 workflows
-- **CIS Presentation workflow** — Caravaggio fully operational, complete CIS coverage
-- **Document Lifecycle Framework** — [`docs/document-lifecycle.md`](./docs/document-lifecycle.md)
-- **Behavioral test suite** — 54/54 PASS · Grade A (96/100)
-
-See [CHANGELOG.md](./CHANGELOG.md) for full version history.
 
 ---
+
 ## Links
 
 - [BMAD-METHOD Core](https://github.com/bmad-code-org/BMAD-METHOD)
