@@ -44,6 +44,6 @@ CRITICAL: When updating large workflow artifacts, DO NOT use `text_editor:write`
 
 ## Memory Protocol
 - On session start: use `memory_load` (query="prior decisions", threshold=0.7, limit=10) to recall prior context
-- During workflow: use `memory_save` to save key decisions, user preferences, and important notes
+- During workflow: use `memory_save` to save key decisions, user preferences, and important notes (always use `area="main"`)
 - Keep entries concise and descriptive
 - Optional: append significant decisions to `.a0proj/knowledge/bmad-ux-designer/` using `text_editor:patch`
