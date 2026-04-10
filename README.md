@@ -1,6 +1,6 @@
 # BMAD Method for Agent Zero
 
-[![Version](https://img.shields.io/badge/version-1.0.5-blue)]() [![License: MIT](https://img.shields.io/badge/license-MIT-green)]() [![Agent Zero](https://img.shields.io/badge/A0-compatible-brightgreen)]()
+[![Version](https://img.shields.io/badge/version-1.0.6-blue)]() [![License: MIT](https://img.shields.io/badge/license-MIT-green)]() [![Agent Zero](https://img.shields.io/badge/A0-compatible-brightgreen)]()
 
 **Structured AI-assisted software development — from idea to shipped code.**
 
@@ -64,21 +64,21 @@ User → BMad Master → [routes to specialist] → artifact produced → state 
 | bmad-pm | John 📋 | `CP` `VP` `EP` `CE` `IR` `CC` | BMM |
 | bmad-ux-designer | Sally 🎨 | `CU` | BMM |
 | bmad-architect | Winston 🏗️ | `CA` `IR` | BMM |
-| bmad-dev | Amelia 💻 | `DS` `CR` `CHK` | BMM |
+| bmad-dev | Amelia 💻 | `DS` `CR` `CK` | BMM |
 | bmad-qa | Quinn 🧪 | `QA` | BMM |
 | bmad-sm | Bob 🏃 | `SP` `CS` `VS` `SS` `ER` `CC` | BMM |
-| bmad-quick-dev | Barry 🚀 | `QS` `QD` `CR` | BMM |
+| bmad-quick-dev | Barry 🚀 | `QS` `QQ` `CR` | BMM |
 | bmad-tech-writer | Paige 📚 | `DP` `WD` `US` `MG` `VD` `EC` | BMM |
-| bmad-test-architect | Murat 🔬 | `TMT` `TF` `AT` `TA` `TD` `TRC` `NR` `CI` `RV` | TEA |
+| bmad-test-architect | Murat 🔬 | `TMT` `TF` `AT` `TA` `TD` `TR` `NR` `CI` `RV` | TEA |
 | bmad-brainstorming-coach | Carson 🧠 | `BS` | CIS |
 | bmad-design-thinking | Maya 🎭 | `DT` | CIS |
 | bmad-innovation | Victor ⚡ | `IS` | CIS |
 | bmad-storyteller | Sophia 📖 | `ST` | CIS |
 | bmad-problem-solver | Dr. Quinn 🔬 | `PS` | CIS |
 | bmad-presentation | Caravaggio 🎨 | `SD` `EX` `PD` `CT` `IN` `VM` `CV` | CIS |
-| bmad-agent-builder | Bond 🤖 | `CA` `EA` `VA` | BMB |
-| bmad-workflow-builder | Wendy 🔄 | `CW` `EW` `VW` `MV` `RW` | BMB |
-| bmad-module-builder | Morgan 🏗️ | `PB` `CM` `EM` `VM` | BMB |
+| bmad-agent-builder | Bond 🤖 | `BA` `EA` `VA` | BMB |
+| bmad-workflow-builder | Wendy 🔄 | `BW` `EW` `VW` `MV` `RW` `CW` | BMB |
+| bmad-module-builder | Morgan 🏗️ | `PB` `CM` `EM` `VM` `IM` | BMB |
 
 ---
 
@@ -90,22 +90,25 @@ Each BMAD module ships as an Agent Zero skill containing a `SKILL.md` manifest, 
 
 ## Prompt Architecture
 
-Each agent is built from a clean 3-layer boundary:
+Each agent uses A0's native prompt slot system for clean separation of concerns:
 
 ~~~
 ┌─────────────────────────────────────────────────────────┐
-│  Agent Prompts  (WHO the agent is)                      │
-│  role.md · communication.md · tips.md                   │
+│  role.md + tips.md     (WHO — persona, principles)      │
 ├─────────────────────────────────────────────────────────┤
-│  Skills  (WHAT to execute)                              │
-│  SKILL.md — workflow routing, paths, execution protocol │
+│  specifics.md          (HOW — BMAD framework rules)      │
 ├─────────────────────────────────────────────────────────┤
-│  Project Instructions  (WHERE the project is)           │
-│  Project config + state                                 │
+│  solving.md            (WHEN — workflow execution pattern)│
+├─────────────────────────────────────────────────────────┤
+│  communication.md      (FORMAT — JSON output rules)      │
+├─────────────────────────────────────────────────────────┤
+│  SKILL.md              (WHAT — workflow routing + steps) │
+├─────────────────────────────────────────────────────────┤
+│  .a0proj/instructions/ (WHERE — project config + state)  │
 └─────────────────────────────────────────────────────────┘
 ~~~
 
-**Agent prompts** define persona, communication style, and menu presentation. **Skills** contain all workflow execution logic. **Project instructions** are written by `bmad init` and contain project-specific state and configuration.
+**role.md** defines persona and principles. **specifics.md** carries the BMAD operational framework (moved from communication.md to use A0's dedicated slot). **solving.md** overrides the default problem-solving pattern with BMAD's workflow-first execution model. **communication.md** handles JSON format rules only. **SKILL.md** contains workflow routing. **Project instructions** provide config and state.
 
 ---
 
@@ -145,7 +148,7 @@ BMAD ships a live project status dashboard. After installation, the BMAD button 
 
 ## Version
 
-**Plugin:** 1.0.4 | **Upstream:** Core 6.2.2 · BMB 1.5.0 · TEA 1.9.1 · CIS 0.1.9
+**Plugin:** 1.0.6 | **Upstream:** Core 6.2.2 · BMB 1.5.0 · TEA 1.9.1 · CIS 0.1.9
 
 See [CHANGELOG.md](./CHANGELOG.md) for full version history.
 

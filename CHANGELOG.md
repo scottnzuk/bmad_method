@@ -6,6 +6,27 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [1.0.6] — 2026-04-10
+
+### Alignment Sprint — Menu Codes + Prompt Architecture
+
+#### Added
+
+- **Ideate Module (IM) workflow** — Morgan (bmad-module-builder) can now ideate new modules
+- **Convert Skill (CW) workflow** — Wendy (bmad-workflow-builder) can convert workflows to skills — BMB parity complete
+
+#### Changed
+
+- **8 menu codes aligned with upstream**: CHK→CK, QD→QQ, ERP→EP, TRC→TR, BAG→BA, BS→SB, CVS→CW, CW→BW
+- **Prompt architecture refactor** — BMAD framework moved to `specifics.md` (A0 design pattern slot), `solving.md` override added with BMAD workflow execution pattern, `communication.md` simplified to JSON format rules only, `tips.md` trimmed to remove duplicated principles
+- All 20 agents updated with new prompt architecture
+
+#### Result
+
+- **100% upstream parity across all 5 modules** — 66/66 workflows routable
+
+---
+
 ## [1.0.5] — 2026-04-09
 
 ### Validation Sprint — End-to-End Method Verification
