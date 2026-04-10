@@ -1,0 +1,25 @@
+# Known-missing refs allowlist for validate-file-refs.py
+# These are upstream BMAD files not ported to the A0 implementation.
+# One pattern per line. Supports fnmatch globs and substring matching.
+# Lines starting with '#' and blank lines are ignored.
+
+# Upstream memory system references (not ported)
+references/memory-system.md
+references/save-memory.md
+references/memories.md
+references/memory-guidance.md
+
+# Upstream initialization and lifecycle refs (not ported)
+references/init.md
+references/autonomous-wake.md
+references/first-breath.md
+
+# Upstream capability/dimension references (not ported)
+references/capability-authoring.md
+references/dimension-definitions.md
+
+# Upstream brainstorm references (not ported)
+references/brainstorm-techniques.md
+
+# Upstream agent not ported to A0
+agents/bmad-commit-poet/agent.yaml

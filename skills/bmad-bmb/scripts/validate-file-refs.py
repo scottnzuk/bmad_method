@@ -7,6 +7,7 @@ extracts file path references, and verifies each exists on disk.
 
 Usage:
     validate-file-refs.py <skill_dir> [--strict] [--root REPO_ROOT] [--verbose]
+                          [--skip-prose-examples] [--known-missing FILE]
 
 Exit codes:
     0   Clean (or issues found but --strict not set)
@@ -16,6 +17,7 @@ Exit codes:
 
 import argparse
 import csv
+import fnmatch
 import re
 import sys
 from pathlib import Path
@@ -43,7 +45,46 @@ def is_resolvable(ref):
     # Skip glob patterns (*), template brackets ([...]), fragment identifiers (#)
     if any(c in ref for c in ('*', '[', ']', '#')):
         return False
+    # Skip cross-skill references (../../../../ traverses out of skill tree)
+    if '../../../../' in ref:
+        return False
     return not _UNRESOLVABLE_RE.search(ref)
+
+
+# ---------------------------------------------------------------------------
+# Known-Missing Allowlist
+# ---------------------------------------------------------------------------
+
+def load_known_missing(filepath):
+    """Load known-missing patterns from a text file (one pattern per line).
+
+    Lines starting with '#' and blank lines are ignored.
+    Patterns support fnmatch glob syntax (e.g. 'references/*.md').
+    """
+    patterns = []
+    try:
+        for line in Path(filepath).read_text(encoding='utf-8').splitlines():
+            line = line.strip()
+            if line and not line.startswith('#'):
+                patterns.append(line)
+    except Exception as e:
+        print('WARNING: Could not load known-missing file: ' + str(e), file=sys.stderr)
+    return patterns
+
+
+def is_known_missing(ref, patterns):
+    """Return True if ref matches any known-missing pattern (fnmatch or substring)."""
+    for pattern in patterns:
+        # Exact suffix match (e.g. 'references/memory-system.md' matches any path ending with it)
+        if ref == pattern or ref.endswith(pattern) or ref.endswith('/' + pattern):
+            return True
+        # fnmatch glob (e.g. 'references/*.md')
+        if fnmatch.fnmatch(ref, pattern) or fnmatch.fnmatch(ref.lstrip('./'), pattern):
+            return True
+        # Substring containment (e.g. 'memory-system.md' catches './references/memory-system.md')
+        if pattern in ref:
+            return True
+    return False
 
 
 # ---------------------------------------------------------------------------
@@ -85,17 +126,15 @@ _MD_LINK_RE = re.compile(r'\[[^\]]*\]\((\.{1,2}/[^)]+)\)')
 # Backtick relative: `./path.md` or `../path.md`
 _MD_BACKTICK_REL_RE = re.compile(r'`(\.{1,2}/[^`]+\.[a-zA-Z]{1,6})`')
 
-# Quoted relative: './path.md' or "../path.md" (using hex escapes to avoid quote mixing)
-_SINGLE_Q = '\x27'
-_DOUBLE_Q = '\x22'
+# Quoted relative: './path.md' or "../path.md"
 _MD_QUOTED_REL_RE = re.compile(
-    r'[\x27\x22](\.{1,2}/[^\x27\x22]+\.[a-zA-Z]{1,6})[\x27\x22]'
+    r"""['"](\.{1,2}/[^'"]+\.[a-zA-Z]{1,6})['"]"""
 )
 
 # Step metadata fields with relative paths
 _STEP_META_RE = re.compile(
     r'(?:thisStepFile|nextStepFile|continueStepFile|skipToStepFile'
-    r'|altStepFile|workflowFile|instructions)\s*:\s*[\x27\x22`]?(\.{1,2}/[^\x27\x22`\s\n]+)'
+    r'|altStepFile|workflowFile|instructions)\s*:\s*[`]?(\.{1,2}/[^`\s\n]+)'
 )
 
 # Load directives: Load: `./path`
@@ -105,13 +144,16 @@ _LOAD_DIRECTIVE_RE = re.compile(r'[Ll]oad\s*:\s*`(\.{1,2}/[^`]+)`')
 _BACKTICK_SKILL_RE = re.compile(r'`((?:skills|agents|extensions)/[^`]+\.[a-zA-Z]{1,6})`')
 
 # YAML relative values: key: ./path or key: ../path
-_YAML_REL_RE = re.compile(r':\s*(\.{1,2}/[^\s,;\x27\x22\n]+\.[a-zA-Z]{1,6})')
+_YAML_REL_RE = re.compile(r':\s*(\.{1,2}/[^\s,;\n]+\.[a-zA-Z]{1,6})')
 
 
-def extract_md_refs(filepath, content):
+def extract_md_refs(filepath, content, skip_prose=False):
     """
     Extract file refs from markdown content.
     Returns list of (line_number, raw_ref, ref_type).
+
+    skip_prose: when True, skip lines containing \u2705 or \u274c characters
+                (validation rule prose examples with fake file paths).
     """
     refs = []
     stripped = strip_code_blocks(content)
@@ -127,6 +169,9 @@ def extract_md_refs(filepath, content):
     ]
 
     for lineno, line in enumerate(lines, 1):
+        # --skip-prose-examples: lines with ✅ or ❌ are rule prose, not real paths
+        if skip_prose and ('\u2705' in line or '\u274c' in line):
+            continue
         seen_on_line = set()
         for pattern, ref_type in patterns:
             for m in pattern.finditer(line):
@@ -212,6 +257,12 @@ def main():
                         help='Repo root directory (default: 2 levels above skill_dir)')
     parser.add_argument('--verbose', action='store_true',
                         help='Show all checked references, not just broken ones')
+    parser.add_argument('--skip-prose-examples', action='store_true',
+                        help='Skip lines containing \u2705 or \u274c (validation rule prose '
+                             'with fake file paths — avoids false positives)')
+    parser.add_argument('--known-missing', default=None, metavar='FILE',
+                        help='Text file with one path pattern per line. '
+                             'Matching refs are silently excluded from broken-ref report.')
     args = parser.parse_args()
 
     skill_dir = Path(args.skill_dir).resolve()
@@ -222,11 +273,20 @@ def main():
     # Repo root: 2 levels above skill_dir (repo_root/skills/bmad-xxx/)
     repo_root = Path(args.root).resolve() if args.root else skill_dir.parents[1]
 
+    # Load known-missing allowlist
+    known_missing_patterns = []
+    if args.known_missing:
+        known_missing_patterns = load_known_missing(args.known_missing)
+
     print('')
     print('Validating file references in: ' + str(skill_dir))
     print('Repo root:                     ' + str(repo_root))
     mode_str = 'STRICT (exit 1 on issues)' if args.strict else 'WARNING (exit 0)'
     print('Mode:                          ' + mode_str)
+    if args.skip_prose_examples:
+        print('Skip prose examples:           ON (lines with \u2705/\u274c skipped)')
+    if known_missing_patterns:
+        print('Known-missing patterns:        ' + str(len(known_missing_patterns)) + ' loaded')
     print('')
 
     files = get_files(skill_dir)
@@ -235,6 +295,7 @@ def main():
 
     total_refs = 0
     broken_count = 0
+    known_missing_skipped = 0
     files_with_issues = 0
 
     for filepath in files:
@@ -250,7 +311,8 @@ def main():
         elif ext == '.csv':
             raw_refs = extract_csv_refs(filepath, content)
         else:
-            raw_refs = extract_md_refs(filepath, content)
+            raw_refs = extract_md_refs(filepath, content,
+                                        skip_prose=args.skip_prose_examples)
 
         broken = []
         ok = []
@@ -263,6 +325,10 @@ def main():
             if resolved.exists():
                 ok.append((lineno, raw, ref_type))
             else:
+                # Check known-missing allowlist before counting as broken
+                if known_missing_patterns and is_known_missing(raw, known_missing_patterns):
+                    known_missing_skipped += 1
+                    continue
                 try:
                     rel_resolved = resolved.relative_to(repo_root)
                 except ValueError:
@@ -294,6 +360,8 @@ def main():
     print('  Files scanned:       ' + str(len(files)))
     print('  References checked:  ' + str(total_refs))
     print('  Broken references:   ' + str(broken_count))
+    if known_missing_skipped > 0:
+        print('  Known-missing (skipped): ' + str(known_missing_skipped))
 
     if broken_count > 0:
         print('')
