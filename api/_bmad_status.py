@@ -3,11 +3,20 @@ import re, json
 from pathlib import Path
 from datetime import datetime
 import sys as _sys
+import importlib.util as _ilu
 from pathlib import Path as _Path
-_sys.path.insert(0, str(_Path(__file__).resolve().parent.parent))
-from helpers.bmad_status_core import (
-    check_agents, check_modules, read_state, read_tests, SKILL_NAMES
-)
+
+# Direct importlib load to avoid name collision with A0's own 'helpers' package.
+# sys.path manipulation fails here because A0's 'helpers' is already in sys.modules.
+_core_path = str(_Path(__file__).resolve().parent.parent / "helpers" / "bmad_status_core.py")
+_spec = _ilu.spec_from_file_location("bmad_status_core", _core_path)
+_core_mod = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_core_mod)
+check_agents  = _core_mod.check_agents
+check_modules = _core_mod.check_modules
+read_state    = _core_mod.read_state
+read_tests    = _core_mod.read_tests
+SKILL_NAMES   = _core_mod.SKILL_NAMES
 
 # --- Plugin-level paths (fixed, plugin-relative) ---
 # Path(__file__).resolve() follows symlinks to the real file location.
