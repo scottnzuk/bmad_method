@@ -1,6 +1,6 @@
 # BMAD Method for Agent Zero
 
-[![Version](https://img.shields.io/badge/version-1.0.6-blue)]() [![License: MIT](https://img.shields.io/badge/license-MIT-green)]() [![Agent Zero](https://img.shields.io/badge/A0-compatible-brightgreen)]()
+[![Version](https://img.shields.io/badge/version-1.0.8-blue)]() [![License: MIT](https://img.shields.io/badge/license-MIT-green)]() [![Agent Zero](https://img.shields.io/badge/A0-compatible-brightgreen)]()
 
 **Structured AI-assisted software development — from idea to shipped code.**
 
@@ -76,7 +76,7 @@ User → BMad Master → [routes to specialist] → artifact produced → state 
 | bmad-storyteller | Sophia 📖 | `ST` | CIS |
 | bmad-problem-solver | Dr. Quinn 🔬 | `PS` | CIS |
 | bmad-presentation | Caravaggio 🎨 | `SD` `EX` `PD` `CT` `IN` `VM` `CV` | CIS |
-| bmad-agent-builder | Bond 🤖 | `BA` `EA` `VA` | BMB |
+| bmad-agent-builder | Bond 🤖 | `BA` `EA` `VA` `VS` `VF` | BMB |
 | bmad-workflow-builder | Wendy 🔄 | `BW` `EW` `VW` `MV` `RW` `CW` | BMB |
 | bmad-module-builder | Morgan 🏗️ | `PB` `CM` `EM` `VM` `IM` | BMB |
 
@@ -148,7 +148,9 @@ BMAD ships a live project status dashboard. After installation, the BMAD button 
 
 ## Version
 
-**Plugin:** 1.0.6 | **Upstream:** Core 6.2.2 · BMB 1.5.0 · TEA 1.9.1 · CIS 0.1.9
+**Plugin:** 1.0.8 | **Upstream:** Core 6.2.2 · BMB 1.5.0 · TEA 1.9.1 · CIS 0.1.9
+
+**Upstream parity: ~98%** — full coverage across BMM, BMB, TEA, CIS modules. Only BMGD (game dev) module deferred. Verified against [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD).
 
 See [CHANGELOG.md](./CHANGELOG.md) for full version history.
 

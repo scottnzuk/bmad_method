@@ -6,6 +6,38 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [1.0.8] — 2026-04-10
+
+### Sprint 10 — Gap Closure Sprint
+
+#### Added
+
+- **Skill Validator workflow (`VS`)** — New `skills/bmad-bmb/workflows/skill/workflow-validate-skill.md` (376 lines). Ports 27 rules (14 deterministic SKILL-01 → SEQ-02 + 13 LLM-inference) from upstream `tools/skill-validator.md`. Completes the BMB validation quartet: VA + VW + VM + VS. Executor: Bond (bmad-agent-builder)
+- **File Reference Validator script (`VF`)** — New `skills/bmad-bmb/scripts/validate-file-refs.py` (310 lines, Python 3 stdlib only). Scans `*.md/*.yaml/*.csv` recursively for broken file path references; `--strict` mode exits non-zero on any broken reference. Executor: Amelia (bmad-dev)
+
+#### Closed
+
+- **GAP-002 CLOSED** — Skill Validator rules ported to BMB (Story 059)
+- **GAP-003 CLOSED** — File Reference Validator script added (Story 060)
+- **GAP-004 CONFIRMED CLOSED** — Code Review 3-layer sharding already implemented: Blind Hunter + Edge Case Hunter + Acceptance Auditor in `step-02-review.md`
+
+#### Status
+
+- **Upstream parity: ~98%** — only BMGD game dev module deferred
+
+---
+
+## [1.0.7] — 2026-04-10
+
+### FM-015 Fix — Workflow Config Path Resolution + Variable Resolution
+
+#### Fixed
+
+- **Workflow config path references** — 3 workflow files referenced non-existent `{project-root}/_bmad/bmm/config.yaml`. Fixed to point to `skills/bmad-bmm/config.yaml` (which exists in A0 plugin structure). Affected: `quick-dev/workflow.md`, `code-review/workflow.md`, `checkpoint-preview/SKILL.md`
+- **Variable resolution guidance for all 19 specialist agents** — Added `## A0 Variable Resolution` block to every specialist agent's `specifics.md`. Agents now know to resolve `{user_name}`, `{communication_language}`, `{output_folder}`, `{planning_artifacts}`, `{implementation_artifacts}` from injected `01-bmad-config.md` instead of attempting to load a config file. Eliminates literal `{placeholder}` leakage in specialist workflow execution.
+
+---
+
 ## [1.0.6] — 2026-04-10
 
 ### Alignment Sprint — Menu Codes + Prompt Architecture
