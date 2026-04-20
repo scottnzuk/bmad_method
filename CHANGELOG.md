@@ -6,6 +6,25 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [1.0.9] — 2026-04-20
+
+### Security Validation Complete
+
+### Added
+
+- Public release of BMAD Method plugin
+- 20 specialist agent personas (BMM, BMB, TEA, CIS modules)
+- Complete skill framework with 100+ skills
+- Python extension for dynamic routing
+- Web UI dashboard and quick actions
+- Full API support for plugin management
+
+### Changed
+
+- Security validation completed
+- Documentation updated
+- Ready for community distribution
+
 ## [1.0.8] — 2026-04-10
 
 ### Sprint 10 — Gap Closure Sprint
